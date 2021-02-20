@@ -12,6 +12,7 @@ public  abstract class Constants {
     public static final String CATEGORY_PRODUCT = "Введите категорию нового устройства: ";
     public static final String NAME_NEW_PRODUCT = "Введите название нового товара: ";
     public static final String COST = "Введите стоимость товара: ";
+    public static final String ENTER = "ввод: ";
     public static final String PRODUCT_DATABASE = "product.bin";
 
 }
