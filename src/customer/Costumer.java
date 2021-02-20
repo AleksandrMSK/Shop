@@ -27,7 +27,7 @@ public class Costumer implements Serializable {
     @Override
     public String toString() {
         return "[ Name: " + name + " Age: " + age + " NumberBonusCart: "
-                + bonusCart + " Login: " + login+" ]";
+                + bonusCart + " Login: " + login+ " пароль "+ password+" ]";
     }
 
     public String getName() {

@@ -3,9 +3,11 @@ package servis;
 public  abstract class Constants {
 
     public static final String REGEX_NAME = "\\w+";
+    public static final String REGEX_BONUS = "\\d{6}";
+
     public static final  String COSTUMER_DATABASE = "databaseCostumer.bin";
 
-    public static final String ADD_PRODUCT = "Сколько позиций товара вы хотите добавить? ";
+    public static final String ADD_PRODUCT = "Сколько позиций товара вы хотите добавить:  ";
     public static final String ENTER_INDEX = "Введите индекс нового устройства: ";
     public static final String CATEGORY_PRODUCT = "Введите категорию нового устройства: ";
     public static final String NAME_NEW_PRODUCT = "Введите название нового товара: ";

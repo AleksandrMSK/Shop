@@ -17,11 +17,10 @@ public class ProductDatabase {
         try {
             System.out.print(Constants.ADD_PRODUCT);
             int countAddNewProduct = scanner.nextInt();
-
             for (int i = 0; i < countAddNewProduct; i++) {
                 System.out.print(Constants.ENTER_INDEX);
                 indexProduct = scanner.nextInt();
-                System.out.println();
+                scanner.nextLine();
                 System.out.print(Constants.CATEGORY_PRODUCT);
                 categoryProduct = scanner.nextLine();
                 System.out.print(Constants.NAME_NEW_PRODUCT);
@@ -56,6 +55,7 @@ public class ProductDatabase {
     }
 
     public static void getProductOfDatabase(){
+        System.out.println("Перечень товара");
         ArrayList<Product> listProduct = readingProductInDatabase();
         for (Product p: listProduct) {
             System.out.println(p.toString());

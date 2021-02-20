@@ -1,6 +1,7 @@
 package registration;
 
 import customer.Costumer;
+import customer.CostumerInterface;
 import servis.Constants;
 
 import java.io.*;
@@ -14,7 +15,6 @@ public class Registration {
     static Scanner scanner = new Scanner(System.in);
 
     public static void registrationCostumer() {
-
         String name = "";
         int age;
         int bonusCart;
@@ -23,33 +23,32 @@ public class Registration {
 
         costumersRegistration = readingCostumerInDatabase();
         System.out.print("Enter name: ");
-
-        while (!(chekLogin(name = scanner.nextLine()))){
-            System.out.println("введите коректное имя");
+        while (!(chekByConformityDataInRegistration(name = scanner.nextLine()))) {
+            System.err.print("Введите корректное имя: ");
         }
-
-
-
-
-
-
-
-                System.out.print("Enter your age: ");
-    age =scanner.nextInt();
+        System.out.print("Enter your age: ");
+        while (!(chekByConformityAgeInRegistrationCostumer(age = scanner.nextInt()))) {
+            System.err.print("Введите корректный возраст: ");
+        }
         System.out.print("Enter your number bonus cart: ");
-    bonusCart =scanner.nextInt();
-        scanner.nextLine();
+        while (!(chekByConformityBonusCartInRegistrationCostumer(bonusCart = scanner.nextInt()))) {
+            System.err.print("Введите корректный номер бонусной карты 6 символов: ");
+        }
         System.out.print("Enter Login: ");
-    login =scanner.nextLine();
+        while (!(chekByConformityDataInRegistration(login = scanner.nextLine()))) {
+            System.out.print("Введите корректный логин: ");
+        }
         System.out.print("Enter password: ");
-    password =scanner.nextLine();
-        costumersRegistration.add(new
+        while (!(chekByConformityDataInRegistration(password = scanner.nextLine()))) {
+            System.err.print("Введите корректный пароль: ");
+        }
+        costumersRegistration.add(new Costumer(name, age, bonusCart, login, password));
+        writingCostumerInDatabase();
+        System.out.println("Вы успешно зарегистрированы под логином " + login);
+        System.out.println();
+        CostumerInterface.interfaceForCostumer();
 
-    Costumer(name, age, bonusCart, login, password));
-
-    writingCostumerInDatabase();
-
-}
+    }
 
     public static ArrayList<Costumer> readingCostumerInDatabase() {
         try {
@@ -77,17 +76,22 @@ public class Registration {
         for (Costumer s : list) {
             System.out.println(s.toString());
             System.out.println("============================================================");
-
         }
-
     }
 
-    public static boolean chekLogin(String login) {
+    public static boolean chekByConformityDataInRegistration(String login) {
         Pattern pattern = Pattern.compile(Constants.REGEX_NAME);
         Matcher matcher = pattern.matcher(login);
-        boolean matches = matcher.matches();
-        return matches;
+        return matcher.matches();
     }
 
+    public static boolean chekByConformityAgeInRegistrationCostumer(int age) {
+        return age > 0 && age < 124;
+    }
 
+    public static boolean chekByConformityBonusCartInRegistrationCostumer(int bonusCart) {
+        Pattern pattern = Pattern.compile(Constants.REGEX_BONUS);
+        Matcher matcher = pattern.matcher(String.valueOf(bonusCart));
+        return matcher.matches();
+    }
 }
