@@ -1,6 +1,8 @@
 package product;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private int indexProduct;
     private String category;
     private String nameProduct;
@@ -8,8 +10,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product " + indexProduct+" category "+category+" nameProduct "
-                +nameProduct +" costProduct " + costProduct;
+        return "[индекс: " + indexProduct+"] [категория: "+category+"] [модель "
+                +nameProduct +"] [стоимость " + costProduct+"]\n"+
+                "=====================================================================";
+
     }
 
     public int getIndexProduct() {

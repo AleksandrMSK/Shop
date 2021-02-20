@@ -4,6 +4,7 @@ import servis.Constants;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class ProductDatabase {
@@ -28,8 +29,8 @@ public class ProductDatabase {
                 System.out.print(Constants.COST);
                 costProduct = scanner.nextDouble();
                 System.out.print(nameProduct + " стоимостью " + costProduct +
-                             " успешно добавлен под индексом " + indexProduct +
-                             " в" + categoryProduct + "категорию ");
+                        " успешно добавлен под индексом " + indexProduct +
+                        " в" + categoryProduct + " категорию ");
                 productList.add(new Product(indexProduct, categoryProduct, nameProduct, costProduct));
             }
             FileOutputStream fileOS = new FileOutputStream(Constants.PRODUCT_DATABASE);
@@ -51,14 +52,22 @@ public class ProductDatabase {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
-    public static void getProductOfDatabase(){
-        System.out.println("Перечень товара");
+    public static void getProductOfDatabase() {
+        System.out.println("             Перечень товара");
         ArrayList<Product> listProduct = readingProductInDatabase();
-        for (Product p: listProduct) {
+        for (Product p : listProduct) {
             System.out.println(p.toString());
         }
+    }
+
+    public static void sortProductByPrice(){
+        ArrayList<Product> listProduct = readingProductInDatabase();
+        Comparator<Product> productComparator = Comparator.comparing(Product::getCostProduct)
+                .thenComparing(Product::getNameProduct);
+        listProduct.stream().sorted(productComparator).forEach(System.out::println);
+
     }
 }
