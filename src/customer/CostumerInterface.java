@@ -26,6 +26,7 @@ public class CostumerInterface {
                                 Greeting.getGreeting();
                                 System.out.println(LoginMenu.getLogin());
                                 System.out.println("1 - Просмотреть список товара");
+                                System.out.println("2 - Отсортировать товар по цене");
                                 System.out.println("2 - Купить товар");
                                 System.out.println("3 - Получить бонусную карту");
                                 System.out.println("0 - Выход");
@@ -49,8 +50,9 @@ public class CostumerInterface {
                                 //
                                 int numberInMenu = scanner.nextInt();
                                 if (numberInMenu == 1) ProductDatabase.getProductOfDatabase();
-                                else if (numberInMenu == 2) System.out.println("покупка товара");
-                                else if (numberInMenu == 3) System.out.println("получить бонусную карту");
+                                else if(numberInMenu==2) ProductDatabase.sortProductByName();
+                                else if (numberInMenu == 3) System.out.println("покупка товара");
+                                else if (numberInMenu == 4) System.out.println("получить бонусную карту");
                                 else if (numberInMenu == 0) flagOnMenu = false;
                                 else System.err.println("Пункта " + numberInMenu + " не сущест");
                             }

@@ -1,6 +1,7 @@
 package product;
 
 import customer.Costumer;
+import employee.EmployeeInterface;
 import servis.Constants;
 
 import java.io.*;
@@ -9,8 +10,9 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class ProductDatabase {
+    static Scanner scanner = new Scanner(System.in);
+
     public static void recordingProductInDatabase() {
-        Scanner scanner = new Scanner(System.in);
         ArrayList<Product> productList = readingProductInDatabase();
         int indexProduct;
         String categoryProduct;
@@ -57,14 +59,14 @@ public class ProductDatabase {
     }
 
     public static void getProductOfDatabase() {
-        System.out.println("             Перечень товара");
+        System.out.println("\n" + "             Перечень товара");
         ArrayList<Product> listProduct = readingProductInDatabase();
         for (Product p : listProduct) {
             System.out.println(p.toString());
         }
     }
 
-    public static void sortProductByPrice(){
+    public static void sortProductByName() {
         ArrayList<Product> listProduct = readingProductInDatabase();
         Comparator<Product> productComparator = Comparator.comparing(Product::getCostProduct)
                 .thenComparing(Product::getNameProduct);

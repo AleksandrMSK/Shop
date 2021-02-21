@@ -1,7 +1,6 @@
 package customer;
 
 import registration.Registration;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
