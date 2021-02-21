@@ -5,7 +5,6 @@ import registration.MenuSelection;
 import registration.Registration;
 import servis.Constants;
 import servis.Greeting;
-
 import java.util.Scanner;
 
 public class CostumerInterface {

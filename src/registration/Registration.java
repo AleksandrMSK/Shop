@@ -2,6 +2,7 @@ package registration;
 
 import customer.Costumer;
 import customer.CostumerInterface;
+import customer.LoginMenu;
 import servis.Constants;
 
 import java.io.*;
@@ -35,11 +36,15 @@ public class Registration {
             System.err.print("Введите корректный номер бонусной карты 6 символов: ");
         }
         System.out.print("Enter Login: ");
-        while (!(chekByConformityDataInRegistration(login = scanner.nextLine()))) {
-            System.out.print("Введите корректный логин: ");
+        while (LoginMenu.checksForDuplicateLogin(login = scanner.next())) {
+            System.out.print("логин "+login + " занят"+"\n"+"Введите уникальный логин: ");
         }
+            while (chekByConformityDataInRegistration(login)) {
+                System.out.print("Введите корректный логин: ");
+            }
+
         System.out.print("Enter password: ");
-        while (!(chekByConformityDataInRegistration(password = scanner.nextLine()))) {
+        while (!(chekByConformityPasswordInRegistration(password = scanner.nextLine()))) {
             System.err.print("Введите корректный пароль: ");
         }
         costumersRegistration.add(new Costumer(name, age, bonusCart, login, password));
@@ -79,9 +84,15 @@ public class Registration {
         }
     }
 
+    //Проверка  на соответствие вводимых данных при регистрации пользователя
     public static boolean chekByConformityDataInRegistration(String login) {
         Pattern pattern = Pattern.compile(Constants.REGEX_NAME);
         Matcher matcher = pattern.matcher(login);
+        return matcher.matches();
+    }
+    public static boolean chekByConformityPasswordInRegistration(String password) {
+        Pattern pattern = Pattern.compile(Constants.REGEX_NAME);
+        Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
 
@@ -94,4 +105,5 @@ public class Registration {
         Matcher matcher = pattern.matcher(String.valueOf(bonusCart));
         return matcher.matches();
     }
+
 }

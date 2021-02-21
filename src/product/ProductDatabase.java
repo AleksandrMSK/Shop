@@ -1,5 +1,6 @@
 package product;
 
+import customer.Costumer;
 import servis.Constants;
 
 import java.io.*;
@@ -68,6 +69,5 @@ public class ProductDatabase {
         Comparator<Product> productComparator = Comparator.comparing(Product::getCostProduct)
                 .thenComparing(Product::getNameProduct);
         listProduct.stream().sorted(productComparator).forEach(System.out::println);
-
     }
 }

@@ -34,4 +34,13 @@ public class LoginMenu {
     public static boolean authorizationCostumerChekPassword(String pass) {
         return password.equals(pass);
     }
+
+    public static boolean checksForDuplicateLogin(String login){
+        ArrayList<Costumer> listForLogin = Registration.readingCostumerInDatabase();
+        for (Costumer c: listForLogin){
+            if (login.equalsIgnoreCase(c.getLogin()));
+            return true;
+        }
+        return false;
+    }
 }
