@@ -1,10 +1,10 @@
-package registration;
+package employee;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import customer.BonusCart;
 import customer.Costumer;
 import customer.CostumerInterface;
 import customer.LoginMenu;
+import registration.Registration;
 import servis.Constants;
 
 import java.io.*;
@@ -15,92 +15,87 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Registration {
-    public static ArrayList<Costumer> costumersRegistration = new ArrayList<>();
+public class DatabaseEmployers implements Serializable {
+    static ArrayList<ShopEmployee> shopEmployers = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
-
-    public static void registrationCostumer() {
-        String name = "";
-        int age;
-        int bonusCart;
-        String login;
+    public static void addEmployers() {
+        int id = shopEmployers.size()+1;
         String password;
+        String name = "";
+        String position = "";
+        int salary = 0;
 
 
         try {
-            costumersRegistration = readingCostumerInDatabase();
+            shopEmployers = readingEmployers();
             System.out.print("Enter name: ");
             while (!(chekByConformityNameInRegistration(name = scanner.nextLine()))) {
                 System.err.print("Введите корректное имя: ");
-            }
-            System.out.print("Enter your age: ");
-            while (!(chekByConformityAgeInRegistrationCostumer(age = scanner.nextInt()))) {
-                System.err.print("Введите корректный возраст: ");
-            }
-            System.out.print("Enter your number bonus cart: ");
-            while (!LoginMenu.checksByBonusCart(bonusCart = scanner.nextInt())) {
-                System.out.print("введите уникальный номер карты: ");
-            }
-            scanner.nextLine();
-            System.out.print("Enter Login: ");
-            while (LoginMenu.checksForDuplicateLogin(login = scanner.nextLine())) {
-                System.out.print("логин " + login + " занят" + "\n" + "Введите уникальный логин: ");
-            }
-            while (!chekByConformityLoginInRegistrationCostumer(login)) {
-                System.out.print("Введите корректный логин: ");
-                login = scanner.nextLine();
             }
             System.out.print("Enter password: ");
             while (!(chekByConformityPasswordInRegistration(password = scanner.nextLine()))) {
                 System.err.print("Введите пароль от 8 до 16 символов: ");
             }
-            costumersRegistration.add(new Costumer(name, age, new BonusCart(bonusCart), login, password));
-            writingCostumerInDatabase();
-            System.out.println("Вы успешно зарегистрированы под логином " + login);
+
+
+            shopEmployers.add(new ShopEmployee(id,password,name,position,salary));
+            writingEmployers();
             System.out.println();
-            CostumerInterface.interfaceForCostumer();
+            System.out.println();
+            EmployeeInterface.getMenuForEmployee();
         } catch (InputMismatchException e) {
             System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
         }
     }
-    public static void deleteCostumerByLogin(String login){
-        costumersRegistration = readingCostumerInDatabase();
-        Iterator<Costumer> iterator = costumersRegistration.iterator();
-        while (iterator.hasNext()){
-            if (iterator.next().getLogin().equalsIgnoreCase(login)){
-                iterator.remove();
-                writingCostumerInDatabase();
-                System.out.println(login+" успешно удалён");
+    public  static void  addBonus(int bonusCart , int count){
+        Registration.costumersRegistration = Registration.readingCostumerInDatabase();
+        for (Costumer c:Registration.costumersRegistration) {
+            if (c.getBonusCart().getId() == bonusCart){
+                c.getBonusCart().setCountBonus(count);
             }
         }
-        System.out.println(login + " не найден");
+        Registration.writingCostumerInDatabase();
     }
 
 
-    public static ArrayList<Costumer> readingCostumerInDatabase() {
+    public static void deleteCostumerByLogin(int id){
+        shopEmployers = readingEmployers();
+        Iterator<ShopEmployee> iterator = shopEmployers.iterator();
+        while (iterator.hasNext()){
+            if (iterator.next().getId()==id){
+                iterator.remove();
+                writingEmployers();
+                System.out.println(id+" уволен!!!!!!");
+            }
+        }
+        System.out.println(id + " не найден");
+    }
+
+
+    public static ArrayList<ShopEmployee> readingEmployers() {
         try {
-            FileInputStream fileIS = new FileInputStream(Constants.COSTUMER_DATABASE);
+            FileInputStream fileIS = new FileInputStream("employers.bin");
             ObjectInputStream objectIS = new ObjectInputStream(fileIS);
-            ArrayList<Costumer> costumersDatabase = (ArrayList<Costumer>) objectIS.readObject();
+            ArrayList<ShopEmployee> shopEmployers = (ArrayList<ShopEmployee>) objectIS.readObject();
             objectIS.close();
-            return costumersDatabase;
+            return shopEmployers;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
     }
 
-    public static void writingCostumerInDatabase() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Constants.COSTUMER_DATABASE))) {
-            oos.writeObject(costumersRegistration);
+    public static void writingEmployers() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("employers.bin"))) {
+            oos.writeObject(shopEmployers);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     public static void getDatabaseCostumer() {
-        ArrayList<Costumer> list = readingCostumerInDatabase();
-        for (Costumer s : list) {
+        ArrayList<ShopEmployee> list = readingEmployers();
+        for (ShopEmployee s : list) {
             System.out.println(s.toString());
             System.out.println("============================================================");
         }

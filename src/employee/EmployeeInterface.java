@@ -18,7 +18,7 @@ public class EmployeeInterface {
             System.out.println("2 - выставить товар по цене");
             System.out.println("3 - убрать товар с витрины");
             System.out.println("4 - вывести данные о клиенте");
-            System.out.println("5 - выдать бонусную карту");
+            System.out.println("5 - начислить бонусы");
             System.out.println("0 - выйти");
             System.out.print(Constants.ENTER);
             int inChekMenu = scanner.nextInt();

@@ -2,7 +2,9 @@ package servis;
 
 public  abstract class Constants {
 
-    public static final String REGEX_NAME = "\\w+";
+    public static final String REGEX_NAME = "[A-z||А-я]+";
+    public static final String REGEX_LOGIN = "\\w+";
+    public static final String REGEX_PASSWORD = "[.||\\S]{8,16}";
     public static final String REGEX_BONUS = "\\d{6}";
 
     public static final  String COSTUMER_DATABASE = "databaseCostumer.bin";

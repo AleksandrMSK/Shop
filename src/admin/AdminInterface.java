@@ -2,6 +2,7 @@ package admin;
 
 import customer.SortCostumer;
 import product.ProductDatabase;
+import registration.Registration;
 import servis.Constants;
 
 import java.util.Scanner;
@@ -45,7 +46,9 @@ public class AdminInterface {
                 SortCostumer.sortCostumerByAll();
             }
             if (inChekMenu == 8) {
-                System.out.println("удаление клиента");
+                System.out.print("Введите логин: ");
+                scanner.nextLine();
+                Registration.deleteCostumerByLogin(scanner.nextLine());
             }
             if (inChekMenu == 0) {
                 flagInWhileAdmin = false;

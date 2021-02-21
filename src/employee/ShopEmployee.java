@@ -1,14 +1,34 @@
 package employee;
 
 public class ShopEmployee {
+    private int id;
+    private String password;
     private String name;
     private String position;
-    private String salary;
+    private int salary;
 
-    public ShopEmployee(String name, String position, String salary) {
+    public ShopEmployee(int id, String password, String name, String position, int salary) {
+        this.id = id;
+        this.password = password;
         this.name = name;
         this.position = position;
         this.salary = salary;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -27,11 +47,11 @@ public class ShopEmployee {
         this.position = position;
     }
 
-    public String getSalary() {
+    public int getSalary() {
         return salary;
     }
 
-    public void setSalary(String salary) {
+    public void setSalary(int salary) {
         this.salary = salary;
     }
 }

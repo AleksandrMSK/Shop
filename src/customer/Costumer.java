@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Costumer implements Serializable {
     private String name;
     private int age;
-    private int bonusCart;
+    private BonusCart bonusCart;
     private String login;
     private String password;
 
@@ -16,7 +16,7 @@ public class Costumer implements Serializable {
         this.password = password;
     }
 
-    public Costumer(String name, int age, int bonusCart, String login, String password) {
+    public Costumer(String name, int age, BonusCart bonusCart, String login, String password) {
         this.name = name;
         this.age = age;
         this.bonusCart = bonusCart;
@@ -46,11 +46,11 @@ public class Costumer implements Serializable {
         this.age = age;
     }
 
-    public int getBonusCart() {
+    public BonusCart getBonusCart() {
         return bonusCart;
     }
 
-    public void setBonusCart(int bonusCart) {
+    public void setBonusCart(BonusCart bonusCart) {
         this.bonusCart = bonusCart;
     }
 
