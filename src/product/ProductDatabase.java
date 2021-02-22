@@ -67,7 +67,7 @@ public class ProductDatabase {
     }
 
     public static void getProductOfDatabase() {
-        System.out.println("\n" + "             Перечень товара");
+        System.out.println("\n+\t+\tТОВАР В НАЛИЧИИ");
         ArrayList<Product> listProduct = readingProductInDatabase();
         for (Product p : listProduct) {
             System.out.println(p.toString());

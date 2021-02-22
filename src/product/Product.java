@@ -12,7 +12,7 @@ public class Product implements Serializable {
     public String toString() {
         return "[индекс: " + indexProduct+"] [категория: "+category+"] [модель "
                 +nameProduct +"] [стоимость " + costProduct+"]\n"+
-                "=====================================================================";
+                "================================================================================";
 
     }
 
