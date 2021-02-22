@@ -16,7 +16,7 @@ public class AdminInterface {
         System.out.print("Введите пароль: ");
         String password = scanner.nextLine();
 
-        if (checkInAdmin(login,password)) {
+        if (checkInAdmin(login, password)) {
             boolean flagInWhileAdmin = true;
             while (flagInWhileAdmin) {
                 System.out.println("");
@@ -88,17 +88,15 @@ public class AdminInterface {
                     flagInWhileAdmin = false;
                 }
             }
-        }else {
+        } else {
             System.out.println("Вход доступен только администратору");
         }
     }
-        public static boolean checkInAdmin (String login, String password){
-            if (login.equalsIgnoreCase("admin")) {
-                if (password.equalsIgnoreCase("admin1234")) {
-                    return true;
-                }
-            }
-            return false;
+    public static boolean checkInAdmin(String login, String password) {
+        if (login.equalsIgnoreCase("admin")) {
+            return password.equalsIgnoreCase("admin1234");
         }
+        return false;
     }
+}
 
