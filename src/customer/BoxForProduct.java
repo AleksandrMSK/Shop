@@ -2,37 +2,42 @@ package customer;
 
 import product.Product;
 import product.ProductDatabase;
-
+import servis.Constants;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class BoxForProduct {
+    static int index;
+    public static final String BASKET = "КОРЗИНА";
+    public static final String THANKS_PURCHASE = "Спасибо за покупку:)";
+    public static final String PAY = "Спасибо за покупку:)";
+    public static final String ENTER_INDEX = "Введите индекс товара для добавления в корзину: ";
+    public static final String SUCCESSFULLY_ADDED = "товар под индексом" + index + " успешно добавлен в корзину";
+    public static final String BASKET_EMPTY = "Корзина пуста";
+
+
     static ArrayList<Product> boxForProduct = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
-    static int index;
 
     public static void addProductToBox() {
-
-        System.out.print("Введите индекс товара для добавления в корзину: ");
+        System.out.print(ENTER_INDEX);
         index = scanner.nextInt();
         scanner.nextLine();
         boolean flag = false;
         for (Product p : ProductDatabase.productList) {
             if (p.getIndexProduct() == index) {
                 boxForProduct.add(p);
-                System.out.println("товар под индексом" + index + " успешно добавлен в корзину" );
+                System.out.println();
                 flag = true;
             }
         }
-        if (!flag){
-            System.out.println("Товара под индексом " + index + " не существует" +
-                    "");
+        if (!flag) {
+            System.out.println(SUCCESSFULLY_ADDED);
         }
     }
 
     public static void getProductOfBox() {
-        System.out.println("КОРЗИНА");
+        System.out.println(BASKET);
         for (Product p : boxForProduct) {
             System.out.println(p.toString());
         }
@@ -43,18 +48,17 @@ public class BoxForProduct {
         if (boxForProduct.size() > 0) {
             getProductOfBox();
             while (flag) {
-                System.out.println("КОРЗИНА");
-                System.out.println("1 - оплатить");
-                System.out.println("0 - выйти");
+                System.out.println(BASKET);
+                System.out.println(PAY);
+                System.out.println(Constants.EXIT);
                 int enterNum = scanner.nextInt();
                 if (enterNum == 1) {
 //                boxForProduct.removeAll(boxForProduct);         //Выстрел в голову
-                    for (Product b: boxForProduct) {
+                    for (Product b : boxForProduct) {
                         ProductDatabase.deleteProduct(b.getIndexProduct());
                     }
                     boxForProduct.clear();
-
-                    System.out.println("Спасибо за покупку:)");
+                    System.out.println(THANKS_PURCHASE);
                     flag = false;
                     CostumerInterface.interfaceForCostumer();
                 }
@@ -62,11 +66,11 @@ public class BoxForProduct {
                     flag = false;
                     CostumerInterface.interfaceForCostumer();
                 } else {
-                    System.out.println("Выберите соответствующий пункт меню");
+                    System.out.println(Constants.SELECT_ITEM);
                 }
             }
         } else {
-            System.out.println("Корзина пуста");
+            System.out.println(BASKET_EMPTY);
         }
     }
 }

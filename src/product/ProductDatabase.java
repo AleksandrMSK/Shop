@@ -90,11 +90,10 @@ public class ProductDatabase {
             if (iterator.next().getIndexProduct() == index) {
                 iterator.remove();
                 writingProductInDatabase();
-                System.out.println("операция прошла успешно");
-                AdminInterface.menuForAdministrator();
+                System.out.println("Товар под индексом " + index + " удалён");
+                break;
             }
         }
-        System.out.println("упс ,что-то пошло не так");
-        AdminInterface.menuForAdministrator();
+
     }
 }

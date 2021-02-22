@@ -9,12 +9,16 @@ import servis.Constants;
 import java.util.Scanner;
 
 public class AdminInterface {
+    public static final String LOGIN_ADMIN = "admin";
+    public static final String PASSWORD_ADMIN = "admin1234";
+
     public static void menuForAdministrator() {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Меню входа администратора");
-        System.out.print("Введите логин: ");
+        System.out.print(Constants.ENTER_LOGIN);
         String login = scanner.nextLine();
-        System.out.print("Введите пароль: ");
+        System.out.print(Constants.ENTER_PASSWORD);
         String password = scanner.nextLine();
         if (checkInAdmin(login, password)) {
             boolean flagInWhileAdmin = true;
@@ -31,47 +35,64 @@ public class AdminInterface {
                 System.out.println("8 - удалить клиента");
                 System.out.println("0 - выход");
                 System.out.print(Constants.ENTER);
+
+
                 int inChekMenu = scanner.nextInt();
+
+
+
                 if (inChekMenu == 1) {
                     boolean flag = true;
                     ProductDatabase.getProductOfDatabase();
                     while (flag) {
-                        System.out.println("1 - Отсортировать по модели");
-                        System.out.println("2 - Отсортировать цене");
+                        System.out.println("1 - Отсортировать по цене");
                         System.out.println("0 - Выйти");
                         int enter = scanner.nextInt();
                         if (enter == 1) {
                             ProductDatabase.sortProductByName();
                         }
-                        if (enter == 2) {
-                            ProductDatabase.sortProductByName();
-                        }
                         if (enter == 0) {
                             flag = false;
                         } else {
-                            System.out.println("Выберите соответствующий пункт меню");
+                            System.out.println(Constants.SELECT_ITEM);
                         }
                     }
-                } else if (inChekMenu == 2) {
+                }
+
+
+
+                else if (inChekMenu == 2) {
                     ProductDatabase.recordingProductInDatabase();
-                } else if (inChekMenu == 3) {
+                }
+
+                else if (inChekMenu == 3) {
                     System.out.print("Введите индекс удаляемого товара: ");
                     ProductDatabase.deleteProduct(scanner.nextInt());
                     scanner.nextInt();
-                } else if (inChekMenu == 4) {
+                }
+
+
+                else if (inChekMenu == 4) {
                     DatabaseEmployers.addEmployers();
-                } else if (inChekMenu == 5) {
+                }
+
+
+                else if (inChekMenu == 5) {
                     System.out.print("Введите id сотрудника: ");
                     DatabaseEmployers.deleteEmployerById(scanner.nextInt());
-                } else if (inChekMenu == 6) {
+                }
+
+                else if (inChekMenu == 6) {
                     DatabaseEmployers.getDatabaseCostumer();
-                } else if (inChekMenu == 7) {
+                }
+
+                else if (inChekMenu == 7) {
                     boolean flag = true;
                     System.out.println("БАЗА ДАННЫХ КЛИЕНТОВ");
                     Registration.getDatabaseCostumer();
                     while (flag) {
-                        System.out.println("1 - Отсортировать по имени");
-                        System.out.println("0 - Выйти");
+                        System.out.println("1 - отсортировать по имени");
+                        System.out.println(Constants.EXIT);
                         int enter = scanner.nextInt();
                         if (enter == 1) {
                             SortCostumer.sortCostumerByAll();
@@ -80,7 +101,10 @@ public class AdminInterface {
                             flag = false;
                         }
                     }
-                } else if (inChekMenu == 8) {
+                }
+
+
+                else if (inChekMenu == 8) {
                     System.out.print("Введите логин клиента: ");
                     scanner.nextLine();
                     Registration.deleteCostumerByLogin(scanner.nextLine());
@@ -93,9 +117,14 @@ public class AdminInterface {
         }
     }
 
+
+    
+    
+    
     public static boolean checkInAdmin(String login, String password) {
-        if (login.equalsIgnoreCase("admin")) {
-            return password.equalsIgnoreCase("admin1234");
+        if (login.equalsIgnoreCase(LOGIN_ADMIN)) {
+
+            return password.equalsIgnoreCase(PASSWORD_ADMIN);
         }
         return false;
     }

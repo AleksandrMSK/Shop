@@ -6,6 +6,7 @@ import customer.Costumer;
 import customer.CostumerInterface;
 import customer.LoginMenu;
 import servis.Constants;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -19,57 +20,63 @@ public class Registration {
     static Scanner scanner = new Scanner(System.in);
 
     public static void registrationCostumer() {
+        boolean flag = true;
         String name = "";
         int age;
         int bonusCart;
         String login;
         String password;
 
+        while (true) {
+            try {
+                costumersRegistration = readingCostumerInDatabase();
+                System.out.print("Enter name: ");
+                while (!(chekByConformityNameInRegistration(name = scanner.nextLine()))) {
+                    System.err.print("Введите корректное имя: ");
+                }
+                System.out.print("Enter your age: ");
+                while (!(chekByConformityAgeInRegistrationCostumer(age = scanner.nextInt()))) {
+                    System.err.print("Введите корректный возраст: ");
+                }
+                System.out.print("Enter your number bonus cart: ");
+                while (!LoginMenu.checksByBonusCart(bonusCart = scanner.nextInt())) {
+                    System.out.print("введите уникальный номер карты: ");
+                }
+                scanner.nextLine();
+                System.out.print("Enter Login: ");
+                while (LoginMenu.checksForDuplicateLogin(login = scanner.nextLine())) {
+                    System.out.print("логин " + login + " занят" + "\n" + "Введите уникальный логин: ");
+                }
+                while (!chekByConformityLoginInRegistrationCostumer(login)) {
+                    System.out.print("Введите корректный логин: ");
+                    login = scanner.nextLine();
+                }
+                System.out.print("Enter password: ");
+                while (!(chekByConformityPasswordInRegistration(password = scanner.nextLine()))) {
+                    System.err.print("Введите пароль от 8 до 16 символов: ");
+                }
+                costumersRegistration.add(new Costumer(name, age, new BonusCart(bonusCart), login, password));
+                writingCostumerInDatabase();
+                System.out.println("Вы успешно зарегистрированы под логином " + login);
+                System.out.println();
+                flag = false;
+                CostumerInterface.interfaceForCostumer();
 
-        try {
-            costumersRegistration = readingCostumerInDatabase();
-            System.out.print("Enter name: ");
-            while (!(chekByConformityNameInRegistration(name = scanner.nextLine()))) {
-                System.err.print("Введите корректное имя: ");
+            } catch (InputMismatchException e) {
+                System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
             }
-            System.out.print("Enter your age: ");
-            while (!(chekByConformityAgeInRegistrationCostumer(age = scanner.nextInt()))) {
-                System.err.print("Введите корректный возраст: ");
-            }
-            System.out.print("Enter your number bonus cart: ");
-            while (!LoginMenu.checksByBonusCart(bonusCart = scanner.nextInt())) {
-                System.out.print("введите уникальный номер карты: ");
-            }
-            scanner.nextLine();
-            System.out.print("Enter Login: ");
-            while (LoginMenu.checksForDuplicateLogin(login = scanner.nextLine())) {
-                System.out.print("логин " + login + " занят" + "\n" + "Введите уникальный логин: ");
-            }
-            while (!chekByConformityLoginInRegistrationCostumer(login)) {
-                System.out.print("Введите корректный логин: ");
-                login = scanner.nextLine();
-            }
-            System.out.print("Enter password: ");
-            while (!(chekByConformityPasswordInRegistration(password = scanner.nextLine()))) {
-                System.err.print("Введите пароль от 8 до 16 символов: ");
-            }
-            costumersRegistration.add(new Costumer(name, age, new BonusCart(bonusCart), login, password));
-            writingCostumerInDatabase();
-            System.out.println("Вы успешно зарегистрированы под логином " + login);
-            System.out.println();
-            CostumerInterface.interfaceForCostumer();
-        } catch (InputMismatchException e) {
-            System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
         }
+
     }
-    public static void deleteCostumerByLogin(String login){
+
+    public static void deleteCostumerByLogin(String login) {
         costumersRegistration = readingCostumerInDatabase();
         Iterator<Costumer> iterator = costumersRegistration.iterator();
-        while (iterator.hasNext()){
-            if (iterator.next().getLogin().equalsIgnoreCase(login)){
+        while (iterator.hasNext()) {
+            if (iterator.next().getLogin().equalsIgnoreCase(login)) {
                 iterator.remove();
                 writingCostumerInDatabase();
-                System.out.println(login+" успешно удалён");
+                System.out.println(login + " успешно удалён");
             }
         }
         System.out.println(login + " не найден");

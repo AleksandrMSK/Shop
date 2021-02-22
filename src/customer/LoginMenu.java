@@ -9,6 +9,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginMenu {
+
+    public static final String NUMBER_CART_BUSY = "Номер бонусной карты занят";
+    public static final String NUMBER_CART_NOT_CORRECT = "Номер бонусной карты введён не корректно";
     private static String login;
     private static String password;
 
@@ -18,9 +21,9 @@ public class LoginMenu {
 
     public static boolean authorizationCostumerChekLogin() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите ваш логин: ");
+        System.out.print(Constants.ENTER_LOGIN);
         login = scanner.nextLine();
-        System.out.print("Введите ваш пароль: ");
+        System.out.print(Constants.ENTER_PASSWORD);
         password = scanner.nextLine();
         System.out.println("");
         ArrayList<Costumer> ligList = Registration.readingCostumerInDatabase();
@@ -55,12 +58,12 @@ public class LoginMenu {
             ArrayList<Costumer> listForLogin = Registration.readingCostumerInDatabase();
             for (Costumer c : listForLogin) {
                 if (bonus == c.getBonusCart().getId()) {
-                    System.out.println("номер бонусной карты занят");
+                    System.out.println(NUMBER_CART_BUSY);
                     return false;
                 }
             }
         } else {
-            System.out.println("не корректный номер бонусной карты");
+            System.out.println(NUMBER_CART_NOT_CORRECT);
             return false;
         }
         return true;
