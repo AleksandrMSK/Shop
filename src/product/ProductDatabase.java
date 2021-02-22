@@ -1,19 +1,20 @@
 package product;
 
+import admin.AdminInterface;
 import customer.Costumer;
 import employee.EmployeeInterface;
+import employee.ShopEmployee;
 import servis.Constants;
+import sun.awt.image.AbstractMultiResolutionImage;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
 
 public class ProductDatabase {
+    static ArrayList<Product> productList = readingProductInDatabase();
     static Scanner scanner = new Scanner(System.in);
 
     public static void recordingProductInDatabase() {
-        ArrayList<Product> productList = readingProductInDatabase();
         int indexProduct;
         String categoryProduct;
         String nameProduct;
@@ -36,12 +37,8 @@ public class ProductDatabase {
                         " в" + categoryProduct + " категорию ");
                 productList.add(new Product(indexProduct, categoryProduct, nameProduct, costProduct));
             }
-            FileOutputStream fileOS = new FileOutputStream(Constants.PRODUCT_DATABASE);
-            ObjectOutputStream objectOS = new ObjectOutputStream(fileOS);
-            objectOS.writeObject(productList);
-            objectOS.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (InputMismatchException e) {
+            System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
         }
     }
 
@@ -58,6 +55,17 @@ public class ProductDatabase {
         return new ArrayList<>();
     }
 
+    public static void writingProductInDatabase() {
+        try {
+            FileOutputStream fileOS = new FileOutputStream(Constants.PRODUCT_DATABASE);
+            ObjectOutputStream objectOS = new ObjectOutputStream(fileOS);
+            objectOS.writeObject(productList);
+            objectOS.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void getProductOfDatabase() {
         System.out.println("\n" + "             Перечень товара");
         ArrayList<Product> listProduct = readingProductInDatabase();
@@ -71,5 +79,20 @@ public class ProductDatabase {
         Comparator<Product> productComparator = Comparator.comparing(Product::getCostProduct)
                 .thenComparing(Product::getNameProduct);
         listProduct.stream().sorted(productComparator).forEach(System.out::println);
+    }
+
+    public static void deleteProduct(int index) {
+        productList = readingProductInDatabase();
+        Iterator<Product> iterator = productList.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().getIndexProduct() == index) {
+                iterator.remove();
+                writingProductInDatabase();
+                System.out.println("операция прошла успешно");
+                AdminInterface.menuForAdministrator();
+            }
+        }
+        System.out.println("упс ,что-то пошло не так");
+        AdminInterface.menuForAdministrator();
     }
 }

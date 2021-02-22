@@ -4,9 +4,10 @@ import customer.SearchCostumer;
 import product.ProductDatabase;
 import servis.Constants;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class EmployeeInterface {
+public class EmployeeInterface implements Serializable {
     static Scanner scanner = new Scanner(System.in);
 
     public static void getMenuForEmployee() {
@@ -23,9 +24,11 @@ public class EmployeeInterface {
             System.out.print(Constants.ENTER);
             int inChekMenu = scanner.nextInt();
             if (inChekMenu == 1) {
+                System.out.println("Склад товара");
                 ProductDatabase.getProductOfDatabase();
             }
             if (inChekMenu == 2) {
+                System.out.println("Товар отсортирован по цене");
                 ProductDatabase.sortProductByName();
             }
             if (inChekMenu == 3) {
@@ -35,11 +38,15 @@ public class EmployeeInterface {
                 Scanner input = new Scanner(System.in);
                 System.out.println("Поиск клиента по логину");
                 System.out.print(Constants.ENTER);
-                String name = input.nextLine();
-                System.err.println(SearchCostumer.searchByLogin(name));
+                System.err.println(SearchCostumer.searchByLogin(input.nextLine()));
+                System.out.println("");
             }
             if (inChekMenu == 5) {
-                System.out.println("Выдать бонусную карту");
+                int numberBonusCart = 0;
+                int countBonus = 0;
+                System.out.print("Введите номер бонусной карты: " + scanner.nextInt());
+                System.out.print("Колличество бонусов: " + scanner.nextInt());
+                DatabaseEmployers.addBonus(numberBonusCart, countBonus);
             }
             if (inChekMenu == 0) {
                 flagForChekInWhile = false;

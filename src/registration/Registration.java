@@ -6,7 +6,6 @@ import customer.Costumer;
 import customer.CostumerInterface;
 import customer.LoginMenu;
 import servis.Constants;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -102,7 +101,7 @@ public class Registration {
         ArrayList<Costumer> list = readingCostumerInDatabase();
         for (Costumer s : list) {
             System.out.println(s.toString());
-            System.out.println("============================================================");
+            System.out.println(Constants.LINE);
         }
     }
 

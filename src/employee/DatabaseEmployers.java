@@ -1,9 +1,6 @@
 package employee;
 
-import customer.BonusCart;
 import customer.Costumer;
-import customer.CostumerInterface;
-import customer.LoginMenu;
 import registration.Registration;
 import servis.Constants;
 
@@ -12,14 +9,13 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DatabaseEmployers implements Serializable {
     static ArrayList<ShopEmployee> shopEmployers = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
+
     public static void addEmployers() {
-        int id = shopEmployers.size()+1;
+        int id = shopEmployers.size() + 1;
         String password;
         String name = "";
         String position = "";
@@ -28,29 +24,34 @@ public class DatabaseEmployers implements Serializable {
 
         try {
             shopEmployers = readingEmployers();
-            System.out.print("Enter name: ");
-            while (!(chekByConformityNameInRegistration(name = scanner.nextLine()))) {
+            System.out.print("Имя сотрудника: ");
+            while (!(Registration.chekByConformityNameInRegistration(name = scanner.nextLine()))) {
                 System.err.print("Введите корректное имя: ");
             }
-            System.out.print("Enter password: ");
-            while (!(chekByConformityPasswordInRegistration(password = scanner.nextLine()))) {
+            System.out.print("Установить пароль: ");
+            while (!(Registration.chekByConformityPasswordInRegistration(password = scanner.nextLine()))) {
                 System.err.print("Введите пароль от 8 до 16 символов: ");
             }
+            System.out.print("Назначить на должность: ");
+            while (!(Registration.chekByConformityNameInRegistration(position = scanner.nextLine()))) {
+                System.err.print("что то пошло не так, попробуй ещё раз: ");
+            }
+            System.out.print("Установить зарплату: ");
+            salary = scanner.nextInt();
 
-
-            shopEmployers.add(new ShopEmployee(id,password,name,position,salary));
+            shopEmployers.add(new ShopEmployee(id, password, name, position, salary));
             writingEmployers();
             System.out.println();
             System.out.println();
-            EmployeeInterface.getMenuForEmployee();
         } catch (InputMismatchException e) {
             System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
         }
     }
-    public  static void  addBonus(int bonusCart , int count){
+
+    public static void addBonus(int bonusCart, int count) {
         Registration.costumersRegistration = Registration.readingCostumerInDatabase();
-        for (Costumer c:Registration.costumersRegistration) {
-            if (c.getBonusCart().getId() == bonusCart){
+        for (Costumer c : Registration.costumersRegistration) {
+            if (c.getBonusCart().getId() == bonusCart) {
                 c.getBonusCart().setCountBonus(count);
             }
         }
@@ -58,14 +59,14 @@ public class DatabaseEmployers implements Serializable {
     }
 
 
-    public static void deleteCostumerByLogin(int id){
+    public static void deleteEmployerById(int id) {
         shopEmployers = readingEmployers();
         Iterator<ShopEmployee> iterator = shopEmployers.iterator();
-        while (iterator.hasNext()){
-            if (iterator.next().getId()==id){
+        while (iterator.hasNext()) {
+            if (iterator.next().getId() == id) {
                 iterator.remove();
                 writingEmployers();
-                System.out.println(id+" уволен!!!!!!");
+                System.out.println(id + " уволен!!!!!!");
             }
         }
         System.out.println(id + " не найден");
@@ -74,7 +75,7 @@ public class DatabaseEmployers implements Serializable {
 
     public static ArrayList<ShopEmployee> readingEmployers() {
         try {
-            FileInputStream fileIS = new FileInputStream("employers.bin");
+            FileInputStream fileIS = new FileInputStream(Constants.EMPLOYERS_DATABASE);
             ObjectInputStream objectIS = new ObjectInputStream(fileIS);
             ArrayList<ShopEmployee> shopEmployers = (ArrayList<ShopEmployee>) objectIS.readObject();
             objectIS.close();
@@ -86,7 +87,7 @@ public class DatabaseEmployers implements Serializable {
     }
 
     public static void writingEmployers() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("employers.bin"))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Constants.EMPLOYERS_DATABASE))) {
             oos.writeObject(shopEmployers);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -97,30 +98,7 @@ public class DatabaseEmployers implements Serializable {
         ArrayList<ShopEmployee> list = readingEmployers();
         for (ShopEmployee s : list) {
             System.out.println(s.toString());
-            System.out.println("============================================================");
+            System.out.println(Constants.LINE);
         }
-    }
-
-    //Проверка  на соответствие вводимых данных при регистрации пользователя
-    public static boolean chekByConformityNameInRegistration(String name) {
-        Pattern pattern = Pattern.compile(Constants.REGEX_NAME);
-        Matcher matcher = pattern.matcher(name);
-        return matcher.matches();
-    }
-
-    public static boolean chekByConformityPasswordInRegistration(String password) {
-        Pattern pattern = Pattern.compile(Constants.REGEX_PASSWORD);
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
-    }
-
-    public static boolean chekByConformityAgeInRegistrationCostumer(int age) {
-        return age > 0 && age < 124;
-    }
-
-    public static boolean chekByConformityLoginInRegistrationCostumer(String login) {
-        Pattern pattern = Pattern.compile(Constants.REGEX_LOGIN);
-        Matcher matcher = pattern.matcher(String.valueOf(login));
-        return matcher.matches();
     }
 }

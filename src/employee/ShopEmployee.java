@@ -1,6 +1,8 @@
 package employee;
 
-public class ShopEmployee {
+import java.io.Serializable;
+
+public class ShopEmployee implements Serializable {
     private int id;
     private String password;
     private String name;
@@ -13,6 +15,12 @@ public class ShopEmployee {
         this.name = name;
         this.position = position;
         this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "[id: " + id + "] [Имя: " + name + "] [Должность: "
+                + position + "] [Зарплата: " + salary+ "]";
     }
 
     public int getId() {
