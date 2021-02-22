@@ -11,10 +11,11 @@ import java.io.*;
 import java.util.*;
 
 public class ProductDatabase {
-    static ArrayList<Product> productList = readingProductInDatabase();
+    public static ArrayList<Product> productList = readingProductInDatabase();
     static Scanner scanner = new Scanner(System.in);
 
     public static void recordingProductInDatabase() {
+
         int indexProduct;
         String categoryProduct;
         String nameProduct;
@@ -34,8 +35,9 @@ public class ProductDatabase {
                 costProduct = scanner.nextDouble();
                 System.out.print(nameProduct + " стоимостью " + costProduct +
                         " успешно добавлен под индексом " + indexProduct +
-                        " в" + categoryProduct + " категорию ");
+                        " в" + categoryProduct + " категорию \n");
                 productList.add(new Product(indexProduct, categoryProduct, nameProduct, costProduct));
+                writingProductInDatabase();
             }
         } catch (InputMismatchException e) {
             System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
@@ -70,7 +72,7 @@ public class ProductDatabase {
         System.out.println("\n+\t+\tТОВАР В НАЛИЧИИ");
         ArrayList<Product> listProduct = readingProductInDatabase();
         for (Product p : listProduct) {
-            System.out.println(p.toString());
+            System.out.println(p);
         }
     }
 

@@ -5,21 +5,22 @@ import registration.MenuSelection;
 import registration.Registration;
 import servis.Constants;
 import servis.Greeting;
+
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class CostumerInterface {
+    static Scanner scanner = new Scanner(System.in);
     public static void interfaceForCostumer() {
-        try (Scanner scanner = new Scanner(System.in)) {
             boolean flagForMainMenu = true;
             boolean flagOnMenu = true;
-
-
             while (flagForMainMenu) {
-                System.out.println("1 - вход");
-                System.out.println("2 - регистрация");
-                System.out.print(Constants.ENTER);
-                int in = scanner.nextByte();
-                if (in == 1) {
+                try {
+                    System.out.println("1 - вход");
+                    System.out.println("2 - регистрация");
+                    System.out.print(Constants.ENTER);
+                    int in = scanner.nextInt();
+                    if (in == 1) {
                         if (LoginMenu.authorizationCostumerChekLogin()) {
                             flagForMainMenu = false;
                             while (flagOnMenu) {
@@ -27,8 +28,8 @@ public class CostumerInterface {
                                 System.out.println(LoginMenu.getLogin());
                                 System.out.println("1 - Просмотреть список товара");
                                 System.out.println("2 - Отсортировать товар по цене");
-                                System.out.println("2 - Купить товар");
-                                System.out.println("3 - Получить бонусную карту");
+                                System.out.println("3 - добавить в корзину");
+                                System.out.println("4 - оплатить товары в корзине");
                                 System.out.println("0 - Выход");
                                 System.out.print(Constants.ENTER);
 
@@ -48,24 +49,40 @@ public class CostumerInterface {
                                 //                        break;
                                 //                    default: System.out.println("Выберите соответвствующий пункт меню");
                                 //
+
+
                                 int numberInMenu = scanner.nextInt();
-                                if (numberInMenu == 1) ProductDatabase.getProductOfDatabase();
-                                else if(numberInMenu==2) ProductDatabase.sortProductByName();
-                                else if (numberInMenu == 3) System.out.println("покупка товара");
-                                else if (numberInMenu == 4) System.out.println("получить бонусную карту");
-                                else if (numberInMenu == 0) flagOnMenu = false;
-                                else System.err.println("Пункта " + numberInMenu + " не сущест");
+
+                                if (numberInMenu == 1) {
+                                    ProductDatabase.getProductOfDatabase();
+                                } else if (numberInMenu == 2) ProductDatabase.sortProductByName();
+                                else if (numberInMenu == 3) {
+                                    BoxForProduct.addProductToBox();
+                                } else if (numberInMenu == 4) {
+                                    BoxForProduct.deleteProductOfBox();
+                                } else if (numberInMenu == 0) {
+                                    flagOnMenu = false;
+                                    break;
+                                } else {
+                                    System.err.println("Пункта " + numberInMenu + " не существует");
+                                }
                             }
                         } else {
                             System.out.println("Вы ввели неверный логин или пароль ,повторите попытку");
 
                         }
+                    }
+                    if (in == 2) {
+                        System.out.println("Меню регистрации");
+                        Registration.registrationCostumer();
+                    }
+                } catch (NoSuchElementException e) {
+                    break;
                 }
-                if (in == 2) {
-                    System.out.println("Меню регистрации");
-                    Registration.registrationCostumer();
+                finally {
+                    scanner.close();
                 }
             }
         }
     }
-}
+

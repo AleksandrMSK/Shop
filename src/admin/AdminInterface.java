@@ -5,6 +5,7 @@ import employee.DatabaseEmployers;
 import product.ProductDatabase;
 import registration.Registration;
 import servis.Constants;
+
 import java.util.Scanner;
 
 public class AdminInterface {
@@ -91,6 +92,7 @@ public class AdminInterface {
             System.out.println("Вход доступен только администратору");
         }
     }
+
     public static boolean checkInAdmin(String login, String password) {
         if (login.equalsIgnoreCase("admin")) {
             return password.equalsIgnoreCase("admin1234");
