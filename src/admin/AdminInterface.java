@@ -5,17 +5,16 @@ import employee.DatabaseEmployers;
 import product.ProductDatabase;
 import registration.Registration;
 import servis.Constants;
-
 import java.util.Scanner;
 
 public class AdminInterface {
     public static void menuForAdministrator() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Меню входа администратора");
         System.out.print("Введите логин: ");
         String login = scanner.nextLine();
         System.out.print("Введите пароль: ");
         String password = scanner.nextLine();
-
         if (checkInAdmin(login, password)) {
             boolean flagInWhileAdmin = true;
             while (flagInWhileAdmin) {
