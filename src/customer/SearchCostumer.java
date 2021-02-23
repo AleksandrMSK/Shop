@@ -6,8 +6,7 @@ import java.util.ArrayList;
 public class SearchCostumer {
     public static final String USER_NOT_FOUND = "пользователь не найден";
     public static String searchByLogin(String name){
-        ArrayList<Costumer> listSearchName = Registration.readingCostumerInDatabase();
-        for (Costumer r : listSearchName ) {
+        for (Costumer r : Registration.costumersRegistration ) {
             if (r.getLogin().equalsIgnoreCase(name)) {
                 return r.toString();
             }

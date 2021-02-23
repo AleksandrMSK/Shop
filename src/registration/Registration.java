@@ -1,6 +1,5 @@
 package registration;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import customer.BonusCart;
 import customer.Costumer;
 import customer.CostumerInterface;
@@ -16,32 +15,34 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Registration {
-    public static ArrayList<Costumer> costumersRegistration = new ArrayList<>();
+    public static ArrayList<Costumer> costumersRegistration;
     static Scanner scanner = new Scanner(System.in);
 
     public static void registrationCostumer() {
-        boolean flag = true;
         String name = "";
         int age;
         int bonusCart;
+        double money;
         String login;
         String password;
 
         while (true) {
             try {
-                costumersRegistration = readingCostumerInDatabase();
                 System.out.print("Enter name: ");
                 while (!(chekByConformityNameInRegistration(name = scanner.nextLine()))) {
                     System.err.print("Введите корректное имя: ");
                 }
                 System.out.print("Enter your age: ");
-                while (!(chekByConformityAgeInRegistrationCostumer(age = scanner.nextInt()))) {
+                while (!(chekByConformityAgeInRegistrationCostumer(age = Integer.parseInt(scanner.next())))) {
                     System.err.print("Введите корректный возраст: ");
                 }
                 System.out.print("Enter your number bonus cart: ");
-                while (!LoginMenu.checksByBonusCart(bonusCart = scanner.nextInt())) {
+                while (!LoginMenu.checksByBonusCart(bonusCart = Integer.parseInt(scanner.next()))) {
                     System.out.print("введите уникальный номер карты: ");
                 }
+                scanner.nextLine();
+                System.out.println("Сколько денег при себе: ");
+                money = Double.parseDouble(scanner.next());
                 scanner.nextLine();
                 System.out.print("Enter Login: ");
                 while (LoginMenu.checksForDuplicateLogin(login = scanner.nextLine())) {
@@ -55,14 +56,14 @@ public class Registration {
                 while (!(chekByConformityPasswordInRegistration(password = scanner.nextLine()))) {
                     System.err.print("Введите пароль от 8 до 16 символов: ");
                 }
-                costumersRegistration.add(new Costumer(name, age, new BonusCart(bonusCart), login, password));
+                costumersRegistration.add(new Costumer(name, age, new BonusCart(bonusCart), money, login, password));
                 writingCostumerInDatabase();
                 System.out.println("Вы успешно зарегистрированы под логином " + login);
                 System.out.println();
-                flag = false;
-                CostumerInterface.interfaceForCostumer();
 
-            } catch (InputMismatchException e) {
+                break;
+
+            } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
             }
         }
@@ -70,16 +71,17 @@ public class Registration {
     }
 
     public static void deleteCostumerByLogin(String login) {
-        costumersRegistration = readingCostumerInDatabase();
+        boolean flag = false;
         Iterator<Costumer> iterator = costumersRegistration.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getLogin().equalsIgnoreCase(login)) {
                 iterator.remove();
                 writingCostumerInDatabase();
                 System.out.println(login + " успешно удалён");
+                flag = true;
             }
         }
-        System.out.println(login + " не найден");
+        if(!flag) System.out.println(login + " не найден");
     }
 
 
@@ -105,8 +107,7 @@ public class Registration {
     }
 
     public static void getDatabaseCostumer() {
-        ArrayList<Costumer> list = readingCostumerInDatabase();
-        for (Costumer s : list) {
+        for (Costumer s : Registration.costumersRegistration) {
             System.out.println(s.toString());
         }
     }
@@ -132,5 +133,23 @@ public class Registration {
         Pattern pattern = Pattern.compile(Constants.REGEX_LOGIN);
         Matcher matcher = pattern.matcher(String.valueOf(login));
         return matcher.matches();
+    }
+
+    public static void addMoneyByBalanceCostumer(double moneyValue) {
+        for (Costumer c : costumersRegistration) {
+            if (c.getLogin().equalsIgnoreCase(LoginMenu.getLogin())) {
+                c.setMoney(c.getMoney() + moneyValue);
+                System.out.println("Баланс пополнен на " + moneyValue + " белок");
+            }
+        }
+        writingCostumerInDatabase();
+    }
+
+    public static void getProfileCostumer() {
+        for (Costumer c : costumersRegistration) {
+            if (c.getLogin().equalsIgnoreCase(LoginMenu.getLogin())) {
+                System.out.println(c);
+            }
+        }
     }
 }

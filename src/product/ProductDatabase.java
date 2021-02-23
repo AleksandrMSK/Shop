@@ -11,40 +11,50 @@ import java.io.*;
 import java.util.*;
 
 public class ProductDatabase {
-    public static ArrayList<Product> productList = readingProductInDatabase();
+    public static ArrayList<Product> productList;
     static Scanner scanner = new Scanner(System.in);
 
     public static void recordingProductInDatabase() {
-
         int indexProduct;
         String categoryProduct;
         String nameProduct;
         double costProduct;
         try {
             System.out.print(Constants.ADD_PRODUCT);
-            int countAddNewProduct = scanner.nextInt();
+            int countAddNewProduct = Integer.parseInt(scanner.next());
             for (int i = 0; i < countAddNewProduct; i++) {
                 System.out.print(Constants.ENTER_INDEX);
-                indexProduct = scanner.nextInt();
+                boolean flag;
+                do {
+                    flag = false;
+                    indexProduct = Integer.parseInt(scanner.next());
+                    for (Product p : productList) {
+                        if (p.getIndexProduct() == indexProduct) {
+                            System.out.println("индекс занят");
+                            System.out.print(Constants.ENTER_INDEX);
+                            flag = true;
+                        }
+                    }
+                } while (flag);
                 scanner.nextLine();
                 System.out.print(Constants.CATEGORY_PRODUCT);
                 categoryProduct = scanner.nextLine();
                 System.out.print(Constants.NAME_NEW_PRODUCT);
                 nameProduct = scanner.next();
                 System.out.print(Constants.COST);
-                costProduct = scanner.nextDouble();
+                costProduct = Double.parseDouble(scanner.next());
                 System.out.print(nameProduct + " стоимостью " + costProduct +
                         " успешно добавлен под индексом " + indexProduct +
                         " в " + categoryProduct + " категорию \n");
                 productList.add(new Product(indexProduct, categoryProduct, nameProduct, costProduct));
                 writingProductInDatabase();
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
+        } catch (InputMismatchException | NumberFormatException e) {
+            System.out.println("Введён недопустимый символ: " + e);
         }
     }
 
-    static ArrayList<Product> readingProductInDatabase() {
+    public static ArrayList<Product> readingProductInDatabase() {
         try {
             FileInputStream fileIS = new FileInputStream(Constants.PRODUCT_DATABASE);
             ObjectInputStream objectIS = new ObjectInputStream(fileIS);
@@ -69,22 +79,24 @@ public class ProductDatabase {
     }
 
     public static void getProductOfDatabase() {
-        System.out.println("\n+\t+\tТОВАР В НАЛИЧИИ");
-        ArrayList<Product> listProduct = readingProductInDatabase();
-        for (Product p : listProduct) {
+        System.out.println("\n\t\tТОВАР В НАЛИЧИИ");
+        for (Product p : productList) {
             System.out.println(p);
         }
     }
 
     public static void sortProductByName() {
-        ArrayList<Product> listProduct = readingProductInDatabase();
         Comparator<Product> productComparator = Comparator.comparing(Product::getCostProduct)
                 .thenComparing(Product::getNameProduct);
-        listProduct.stream().sorted(productComparator).forEach(System.out::println);
+        productList.stream().sorted(productComparator).forEach(System.out::println);
+    }
+
+    public static void filterProductByPrice(int start, int end) {
+        productList.stream()
+                .filter(n -> n.getCostProduct() > start && n.getCostProduct() < end).forEach(System.out::println);
     }
 
     public static void deleteProduct(int index) {
-        productList = readingProductInDatabase();
         Iterator<Product> iterator = productList.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getIndexProduct() == index) {

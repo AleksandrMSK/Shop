@@ -26,8 +26,7 @@ public class LoginMenu {
         System.out.print(Constants.ENTER_PASSWORD);
         password = scanner.nextLine();
         System.out.println("");
-        ArrayList<Costumer> ligList = Registration.readingCostumerInDatabase();
-        for (Costumer s : ligList) {
+        for (Costumer s : Registration.costumersRegistration) {
             if (s.getLogin().equalsIgnoreCase(login)) {
                 if (authorizationCostumerChekPassword(s.getPassword())) {
                     return true;
@@ -42,8 +41,7 @@ public class LoginMenu {
     }
 
     public static boolean checksForDuplicateLogin(String login) {
-        ArrayList<Costumer> listForLogin = Registration.readingCostumerInDatabase();
-        for (Costumer c : listForLogin) {
+        for (Costumer c : Registration.costumersRegistration) {
             if (login.equalsIgnoreCase(c.getLogin())) {
                 return true;
             }
@@ -55,8 +53,7 @@ public class LoginMenu {
         Pattern pattern = Pattern.compile(Constants.REGEX_BONUS);
         Matcher matcher = pattern.matcher(String.valueOf(bonus));
         if (matcher.matches()) {
-            ArrayList<Costumer> listForLogin = Registration.readingCostumerInDatabase();
-            for (Costumer c : listForLogin) {
+            for (Costumer c : Registration.costumersRegistration) {
                 if (bonus == c.getBonusCart().getId()) {
                     System.out.println(NUMBER_CART_BUSY);
                     return false;

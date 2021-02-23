@@ -29,6 +29,6 @@ public class BonusCart implements Serializable {
     }
 
     public void setCountBonus(int countBonus) {
-        this.countBonus = this.countBonus + countBonus;
+        this.countBonus = countBonus;
     }
 }

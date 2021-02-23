@@ -6,9 +6,18 @@ public class Costumer implements Serializable {
     private String name;
     private int age;
     private BonusCart bonusCart;
+    private double money;
     private String login;
     private String password;
 
+    public Costumer(String name, int age, BonusCart bonusCart, double money, String login, String password) {
+        this.name = name;
+        this.age = age;
+        this.bonusCart = bonusCart;
+        this.money = money;
+        this.login = login;
+        this.password = password;
+    }
     public Costumer(String name, int age, String login, String password) {
         this.name = name;
         this.age = age;
@@ -24,12 +33,13 @@ public class Costumer implements Serializable {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "[Имя: " + name + "] [Возраст: " + age + "] [Номер бонусной карты: "
-                + bonusCart + "] [Логин: " + login+ "]";
+    public double getMoney() {
+        return money;
     }
 
+    public void setMoney(double money) {
+        this.money = money;
+    }
     public String getName() {
         return name;
     }
@@ -68,5 +78,10 @@ public class Costumer implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "[Имя: " + name + "] [Возраст: " + age + "] [Номер бонусной карты: "
+                + bonusCart + "] [На счету: "+ money +" белок] [Логин: " + login+ "]";
     }
 }

@@ -1,6 +1,7 @@
 package employee;
 
 import customer.Costumer;
+import product.Product;
 import registration.Registration;
 import servis.Constants;
 
@@ -11,20 +12,30 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class DatabaseEmployers implements Serializable {
-    static ArrayList<ShopEmployee> shopEmployers = new ArrayList<>();
+    static ArrayList<ShopEmployee> shopEmployers;
     static Scanner scanner = new Scanner(System.in);
 
     public static void addEmployers() {
-        int id = 1;
+        int id ;
         String password;
-        String name = "";
-        String position = "";
-        int salary = 0;
-
-
+        String name;
+        String position;
+        int salary;
         try {
-
-            shopEmployers = readingEmployers();
+            System.out.print("Введите id сотрудника: ");
+            boolean flag;
+            do {
+                flag = false;
+                id = Integer.parseInt(scanner.next());
+                for (ShopEmployee p : shopEmployers) {
+                    if (p.getId() == id) {
+                        System.out.println("индекс занят");
+                        System.out.print("Введите id сотрудника: ");
+                        flag = true;
+                    }
+                }
+            } while (flag);
+            scanner.nextLine();
             System.out.print("Имя сотрудника: ");
             while (!(Registration.chekByConformityNameInRegistration(name = scanner.nextLine()))) {
                 System.err.print("Введите корректное имя: ");
@@ -38,21 +49,20 @@ public class DatabaseEmployers implements Serializable {
                 System.err.print("что то пошло не так, попробуй ещё раз: ");
             }
             System.out.print("Установить зарплату: ");
-            salary = scanner.nextInt();
+            salary = Integer.parseInt(scanner.next());
             shopEmployers.add(new ShopEmployee(id, password, name, position, salary));
-            id += shopEmployers.size();
+
             writingEmployers();
             System.out.println("\n "+name+" успешно нанят на должность " + position+"\n");
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException | NumberFormatException e) {
             System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
         }
     }
 
     public static void addBonus(int bonusCart, int count) {
-        Registration.costumersRegistration = Registration.readingCostumerInDatabase();
         for (Costumer c : Registration.costumersRegistration) {
             if (c.getBonusCart().getId() == bonusCart) {
-                c.getBonusCart().setCountBonus(count);
+                c.getBonusCart().setCountBonus(c.getBonusCart().getCountBonus() + count);
             }
         }
         Registration.writingCostumerInDatabase();
@@ -60,7 +70,6 @@ public class DatabaseEmployers implements Serializable {
 
 
     public static void deleteEmployerById(int id) {
-        shopEmployers = readingEmployers();
         Iterator<ShopEmployee> iterator = shopEmployers.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getId() == id) {
@@ -95,9 +104,16 @@ public class DatabaseEmployers implements Serializable {
     }
 
     public static void getDatabaseCostumer() {
-        ArrayList<ShopEmployee> list = readingEmployers();
-        for (ShopEmployee s : list) {
+        for (ShopEmployee s : shopEmployers) {
             System.out.println(s.toString());
         }
+    }
+
+    public static ArrayList<ShopEmployee> getShopEmployers() {
+        return shopEmployers;
+    }
+
+    public static void setShopEmployers(ArrayList<ShopEmployee> shopEmployers) {
+        DatabaseEmployers.shopEmployers = shopEmployers;
     }
 }
