@@ -3,7 +3,6 @@ package customer;
 import registration.Registration;
 import servis.Constants;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,8 +63,6 @@ public class LoginMenu {
             return false;
         }
         return true;
-
-
     }
 }
 

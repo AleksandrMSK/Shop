@@ -7,14 +7,26 @@ import registration.Registration;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static servis.Constants.COME_BACK;
+import static servis.Constants.SELECT_ITEM;
+
 public class BoxForProduct {
     static int index;
     public static final String BASKET = "КОРЗИНА";
-    public static final String THANKS_PURCHASE = "Спасибо за покупку:)";
-    public static final String PAY = "Спасибо за покупку:)";
     public static final String ENTER_INDEX = "Введите индекс товара для добавления в корзину: ";
-    public static  String SUCCESSFULLY_ADDED = "товар под индексом " + index + " успешно добавлен в корзину";
+    public static String SUCCESSFULLY_ADDED = "товар под индексом " + index + " успешно добавлен в корзину";
+    public static String SUCCESSFULLY_DELETE = "товар под индексом " + index + " не найден";
     public static final String BASKET_EMPTY = "Корзина пуста";
+    public static final String PAY = "1 - оплатить";
+    public static final String BASKET_CLEAR = "2 - очистить корзину";
+    public static final String RECEIPT = "ТОВАРНЫЙ ЧЕК";
+    public static final String WRITE_OFF = "списано бонусов - ";
+    public static final String PAID_APP = "итого оплачено - ";
+    public static final String REMAINDER_BONUS = "остаток бонусов - ";
+    public static final String REMAINDER_MONEY = "статок белок - ";
+    public static final String ITEM_MENU = "для завершения опперации вам не хватает ";
+    public static final String MONEY = " белок";
+    public static final String CLEAR = "корзина очищена";
 
 
     static ArrayList<Product> boxForProduct = new ArrayList<>();
@@ -34,10 +46,10 @@ public class BoxForProduct {
                 }
             }
             if (!flag) {
-                System.out.println("товар под индексом " + index + " не найден");
+                System.out.println(SUCCESSFULLY_DELETE);
             }
-        }catch (NumberFormatException e){
-            System.out.println(e);
+        } catch (NumberFormatException e) {
+            System.out.println(SELECT_ITEM + e);
         }
     }
 
@@ -54,9 +66,9 @@ public class BoxForProduct {
         try {
             if (boxForProduct.size() > 0) {
                 getProductOfBox();
-                System.out.println("1 - оплатить");
-                System.out.println("2 - очистить корзину");
-                System.out.println("0 - вернуться");
+                System.out.println(PAY);
+                System.out.println(BASKET_CLEAR);
+                System.out.println(COME_BACK);
                 switch (Integer.parseInt(scanner.next())) {
                     case 1:
                         for (Product p : boxForProduct) {
@@ -64,13 +76,13 @@ public class BoxForProduct {
                         }
                         for (Costumer c : Registration.costumersRegistration) {
                             if (c.getLogin().equalsIgnoreCase(LoginMenu.getLogin())) {
-                                if (c.getBonusCart().getCountBonus() > 0 && c.getBonusCart().getCountBonus() <= finalPrice) {
+                                if (c.getBonusCart().getCountBonus() > 0 && c.getBonusCart()
+                                        .getCountBonus() <= finalPrice) {
                                     finalPrice -= c.getBonusCart().getCountBonus();
                                     if (finalPrice < 0) {
                                         countBonus = c.getBonusCart().getCountBonus() - Math.abs(finalPrice);
                                         c.getBonusCart().setCountBonus(Math.abs(finalPrice));
                                         finalPrice = 0;
-
                                     } else {
                                         countBonus = c.getBonusCart().getCountBonus();
                                         c.getBonusCart().setCountBonus(0);
@@ -82,32 +94,31 @@ public class BoxForProduct {
                                         ProductDatabase.deleteProduct(b.getIndexProduct());
                                     }
                                     boxForProduct.clear();
-                                    System.out.println("ТОВАРНЫЙ ЧЕК");
-                                    System.out.println("списано бонусов - " + countBonus);
-                                    System.out.println("итого оплачено - " + finalPrice);
-                                    System.out.println("остаток бонусов - " + c.getBonusCart().getCountBonus());
-                                    System.out.println("статок белок - " + c.getMoney());
-
+                                    System.out.println(RECEIPT);
+                                    System.out.println(WRITE_OFF + countBonus);
+                                    System.out.println(PAID_APP + finalPrice);
+                                    System.out.println(REMAINDER_BONUS + c.getBonusCart().getCountBonus());
+                                    System.out.println(REMAINDER_MONEY + c.getMoney());
                                 } else {
-                                    System.out.println("для завершения опперации вам не хватает " + (finalPrice - c.getMoney()) + " белок");
+                                    System.out.println(ITEM_MENU + (finalPrice - c.getMoney()) + MONEY);
                                 }
                             }
                         }
                         break;
                     case 2:
                         boxForProduct.clear();
-                        System.out.println("корзина очищена");
+                        System.out.println(CLEAR);
                         break;
                     case 0:
                         break;
                     default:
-                        System.out.println("Выбери соответствующий пункт меню");
+                        System.out.println(SELECT_ITEM);
                 }
             } else {
-                System.out.println("корзина пуста");
+                System.out.println(BASKET_EMPTY);
             }
-        }catch (NumberFormatException e){
-            System.out.println(e);
+        } catch (NumberFormatException e) {
+            System.out.println(SELECT_ITEM + e);
         }
     }
 }

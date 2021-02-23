@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class AdminInterface extends ConstantsAdmin {
     public static void menuForAdministrator() {
-
         Scanner scanner = new Scanner(System.in);
         System.out.println(MENU_ADMIN);
         System.out.print(Constants.ENTER_LOGIN);
@@ -32,7 +31,6 @@ public class AdminInterface extends ConstantsAdmin {
                     System.out.println(TO_FIRE_COSTUMER);
                     System.out.println(Constants.EXIT);
                     System.out.print(Constants.ENTER);
-
                     switch (Integer.parseInt(scanner.next())) {
                         case 1:
                             boolean flag = true;
@@ -96,8 +94,8 @@ public class AdminInterface extends ConstantsAdmin {
                         default:
                             System.out.println(Constants.SELECT_ITEM);
                     }
-                }catch (NumberFormatException e){
-                    System.out.println(e);
+                } catch (NumberFormatException e) {
+                    System.out.println(Constants.ERROR_TYPING + e);
                 }
             }
         } else {

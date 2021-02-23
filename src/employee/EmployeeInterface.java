@@ -1,6 +1,6 @@
 package employee;
 
-import customer.SearchCostumer;
+import customer.Search;
 import product.ProductDatabase;
 import servis.Constants;
 
@@ -43,7 +43,7 @@ public class EmployeeInterface implements Serializable {
                         Scanner input = new Scanner(System.in);
                         System.out.println("Поиск клиента по логину");
                         System.out.print(Constants.ENTER);
-                        System.out.println(SearchCostumer.searchByLogin(input.nextLine()));
+                        System.out.println(Search.searchByLogin(input.nextLine()));
                         System.out.println("");
                     }
                     if (inChekMenu == 5) {

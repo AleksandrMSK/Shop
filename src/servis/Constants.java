@@ -22,9 +22,11 @@ public abstract class Constants {
     public static final String COST = "Введите стоимость товара: ";
     public static final String ENTER = "ввод: ";
     public static final String EXIT = "0 - выйти";
+    public static final String COME_BACK = "0 - вернуться";
     public static final String SELECT_ITEM = "Выберите соответствующий пункт меню";
     public static final String SORT_BY_PRICE = "1 - отсортировать по цене";
     public static final String SORT_BY_NAME = "1 - отсортировать по имени";
+    public static final String ERROR_TYPING = "Введён недопустимый символ, повторите попытку ";
 
     public static final String DATABASE_COSTUMERS = "БАЗА ДАННЫХ КЛИЕНТОВ";
 

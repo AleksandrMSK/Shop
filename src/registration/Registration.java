@@ -64,7 +64,7 @@ public class Registration {
                 break;
 
             } catch (InputMismatchException | NumberFormatException e) {
-                System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
+                System.out.println(Constants.ERROR_TYPING + e);
             }
         }
 
