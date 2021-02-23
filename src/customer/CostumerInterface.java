@@ -1,7 +1,6 @@
 package customer;
 
 import product.ProductDatabase;
-import registration.MenuSelection;
 import registration.Registration;
 import servis.Constants;
 import servis.Greeting;
@@ -53,7 +52,7 @@ public class CostumerInterface {
                                 BoxForProduct.deleteProductOfBox();
                                 break;
                             case 0:
-                                System.out.println(MenuSelection.EXIT);
+                                System.out.println(Constants.EXIT);
                                 flagOnMenu = false;
                                 break;
                             default:

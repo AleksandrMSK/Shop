@@ -48,8 +48,7 @@ public class BoxForProduct {
         if (boxForProduct.size() > 0) {
             getProductOfBox();
             while (flag) {
-                System.out.println(BASKET);
-                System.out.println(PAY);
+                System.out.println("1 - оплатить товар");
                 System.out.println(Constants.EXIT);
                 int enterNum = scanner.nextInt();
                 if (enterNum == 1) {
@@ -58,13 +57,11 @@ public class BoxForProduct {
                         ProductDatabase.deleteProduct(b.getIndexProduct());
                     }
                     boxForProduct.clear();
-                    System.out.println(THANKS_PURCHASE);
+                    System.out.println(PAY);
                     flag = false;
-                    CostumerInterface.interfaceForCostumer();
                 }
                 if (enterNum == 0) {
                     flag = false;
-                    CostumerInterface.interfaceForCostumer();
                 } else {
                     System.out.println(Constants.SELECT_ITEM);
                 }

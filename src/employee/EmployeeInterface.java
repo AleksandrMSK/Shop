@@ -40,20 +40,23 @@ public class EmployeeInterface implements Serializable {
                     Scanner input = new Scanner(System.in);
                     System.out.println("Поиск клиента по логину");
                     System.out.print(Constants.ENTER);
-                    System.err.println(SearchCostumer.searchByLogin(input.nextLine()));
+                    System.out.println(SearchCostumer.searchByLogin(input.nextLine()));
                     System.out.println("");
                 }
                 if (inChekMenu == 5) {
-                    int numberBonusCart = 0;
-                    int countBonus = 0;
-                    System.out.print("Введите номер бонусной карты: " + scanner.nextInt());
-                    System.out.print("Колличество бонусов: " + scanner.nextInt());
+                    System.out.print("Введите номер бонусной карты: ");
+                    int numberBonusCart =  scanner.nextInt();
+                    System.out.print("Колличество бонусов: " );
+                    int countBonus = scanner.nextInt();
                     DatabaseEmployers.addBonus(numberBonusCart, countBonus);
                 }
                 if (inChekMenu == 0) {
                     flagForChekInWhile = false;
                 }
             }
+        }
+        else {
+            System.out.println("что то пошло не так");
         }
     }
 }

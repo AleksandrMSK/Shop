@@ -15,7 +15,7 @@ public class DatabaseEmployers implements Serializable {
     static Scanner scanner = new Scanner(System.in);
 
     public static void addEmployers() {
-        int id = shopEmployers.size() + 1;
+        int id = 1;
         String password;
         String name = "";
         String position = "";
@@ -23,6 +23,7 @@ public class DatabaseEmployers implements Serializable {
 
 
         try {
+
             shopEmployers = readingEmployers();
             System.out.print("Имя сотрудника: ");
             while (!(Registration.chekByConformityNameInRegistration(name = scanner.nextLine()))) {
@@ -38,11 +39,10 @@ public class DatabaseEmployers implements Serializable {
             }
             System.out.print("Установить зарплату: ");
             salary = scanner.nextInt();
-
             shopEmployers.add(new ShopEmployee(id, password, name, position, salary));
+            id += shopEmployers.size();
             writingEmployers();
-            System.out.println();
-            System.out.println();
+            System.out.println("\n "+name+" успешно нанят на должность " + position+"\n");
         } catch (InputMismatchException e) {
             System.out.println("Введён недопустимый символ, повторите регистрацию: " + e);
         }
@@ -98,7 +98,6 @@ public class DatabaseEmployers implements Serializable {
         ArrayList<ShopEmployee> list = readingEmployers();
         for (ShopEmployee s : list) {
             System.out.println(s.toString());
-            System.out.println(Constants.LINE);
         }
     }
 }

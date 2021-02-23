@@ -35,7 +35,7 @@ public class ProductDatabase {
                 costProduct = scanner.nextDouble();
                 System.out.print(nameProduct + " стоимостью " + costProduct +
                         " успешно добавлен под индексом " + indexProduct +
-                        " в" + categoryProduct + " категорию \n");
+                        " в " + categoryProduct + " категорию \n");
                 productList.add(new Product(indexProduct, categoryProduct, nameProduct, costProduct));
                 writingProductInDatabase();
             }

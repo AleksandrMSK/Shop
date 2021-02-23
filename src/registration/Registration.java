@@ -108,7 +108,6 @@ public class Registration {
         ArrayList<Costumer> list = readingCostumerInDatabase();
         for (Costumer s : list) {
             System.out.println(s.toString());
-            System.out.println(Constants.LINE);
         }
     }
 

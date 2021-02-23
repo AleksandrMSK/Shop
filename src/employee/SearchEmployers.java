@@ -8,19 +8,18 @@ import java.util.Scanner;
 
 public class SearchEmployers {
     public static boolean authorizationCostumerChekLogin() {
-        int login;
+        int id;
         String password;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Меню входа сотрудника");
-        System.out.print("Введите ваш логин: ");
-        login = scanner.nextInt();
+        System.out.print("Введите ваш id: ");
+        id = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Введите ваш пароль: ");
         password = scanner.nextLine();
-        System.out.println("");
-        ArrayList<ShopEmployee> shopList = DatabaseEmployers.readingEmployers();
-        for (ShopEmployee s : shopList) {
-            if (s.getId() == login) {
-                if (s.getPassword()==password) {
+        for (ShopEmployee s : DatabaseEmployers.shopEmployers) {
+            if (s.getId() == id) {
+                if (s.getPassword().equals(password)) {
                     return true;
                 }
             }
