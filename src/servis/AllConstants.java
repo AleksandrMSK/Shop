@@ -1,6 +1,6 @@
 package servis;
 
-public abstract class Constants {
+public abstract class AllConstants {
     //регулярки
     public static final String REGEX_NAME = "[A-z||А-я]+";
     public static final String REGEX_LOGIN = "\\w+";
@@ -27,6 +27,8 @@ public abstract class Constants {
     public static final String SORT_BY_PRICE = "1 - отсортировать по цене";
     public static final String SORT_BY_NAME = "1 - отсортировать по имени";
     public static final String ERROR_TYPING = "Введён недопустимый символ, повторите попытку ";
+    public static final String INDEX_BUSY = "Индекс занят";
+
 
     public static final String DATABASE_COSTUMERS = "БАЗА ДАННЫХ КЛИЕНТОВ";
 

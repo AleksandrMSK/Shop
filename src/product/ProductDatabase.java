@@ -1,16 +1,21 @@
 package product;
 
-import admin.AdminInterface;
-import customer.Costumer;
-import employee.EmployeeInterface;
-import employee.ShopEmployee;
-import servis.Constants;
-import sun.awt.image.AbstractMultiResolutionImage;
+import servis.AllConstants;
 
 import java.io.*;
 import java.util.*;
 
+import static servis.AllConstants.ERROR_TYPING;
+import static servis.AllConstants.INDEX_BUSY;
+
 public class ProductDatabase {
+    public static final String PRODUCT_INDEX = "Товар под индексом ";
+    public static final String PRODUCT_IN_STOCK = "\n\tТОВАР В НАЛИЧИИ";
+    public static final String DELETE = " удалён";
+    public static final String PRICE = " стоимостью ";
+    public static final String SUCCESSFULLY_ADDED = " успешно добавлен под индексом ";
+    public static final String IN = " в ";
+    public static final String CATEGORY = " категорию \n";
     public static ArrayList<Product> productList;
     static Scanner scanner = new Scanner(System.in);
 
@@ -20,43 +25,42 @@ public class ProductDatabase {
         String nameProduct;
         double costProduct;
         try {
-            System.out.print(Constants.ADD_PRODUCT);
+            System.out.print(AllConstants.ADD_PRODUCT);
             int countAddNewProduct = Integer.parseInt(scanner.next());
             for (int i = 0; i < countAddNewProduct; i++) {
-                System.out.print(Constants.ENTER_INDEX);
+                System.out.print(AllConstants.ENTER_INDEX);
                 boolean flag;
                 do {
                     flag = false;
                     indexProduct = Integer.parseInt(scanner.next());
                     for (Product p : productList) {
                         if (p.getIndexProduct() == indexProduct) {
-                            System.out.println("индекс занят");
-                            System.out.print(Constants.ENTER_INDEX);
+                            System.out.println(INDEX_BUSY);
+                            System.out.print(AllConstants.ENTER_INDEX);
                             flag = true;
                         }
                     }
                 } while (flag);
                 scanner.nextLine();
-                System.out.print(Constants.CATEGORY_PRODUCT);
+                System.out.print(AllConstants.CATEGORY_PRODUCT);
                 categoryProduct = scanner.nextLine();
-                System.out.print(Constants.NAME_NEW_PRODUCT);
+                System.out.print(AllConstants.NAME_NEW_PRODUCT);
                 nameProduct = scanner.next();
-                System.out.print(Constants.COST);
+                System.out.print(AllConstants.COST);
                 costProduct = Double.parseDouble(scanner.next());
-                System.out.print(nameProduct + " стоимостью " + costProduct +
-                        " успешно добавлен под индексом " + indexProduct +
-                        " в " + categoryProduct + " категорию \n");
+                System.out.print(nameProduct + PRICE + costProduct + SUCCESSFULLY_ADDED + indexProduct +
+                        IN + categoryProduct + CATEGORY);
                 productList.add(new Product(indexProduct, categoryProduct, nameProduct, costProduct));
                 writingProductInDatabase();
             }
         } catch (InputMismatchException | NumberFormatException e) {
-            System.out.println("Введён недопустимый символ: " + e);
+            System.out.println(ERROR_TYPING + e);
         }
     }
 
     public static ArrayList<Product> readingProductInDatabase() {
         try {
-            FileInputStream fileIS = new FileInputStream(Constants.PRODUCT_DATABASE);
+            FileInputStream fileIS = new FileInputStream(AllConstants.PRODUCT_DATABASE);
             ObjectInputStream objectIS = new ObjectInputStream(fileIS);
             ArrayList<Product> product = (ArrayList<Product>) objectIS.readObject();
             objectIS.close();
@@ -69,7 +73,7 @@ public class ProductDatabase {
 
     public static void writingProductInDatabase() {
         try {
-            FileOutputStream fileOS = new FileOutputStream(Constants.PRODUCT_DATABASE);
+            FileOutputStream fileOS = new FileOutputStream(AllConstants.PRODUCT_DATABASE);
             ObjectOutputStream objectOS = new ObjectOutputStream(fileOS);
             objectOS.writeObject(productList);
             objectOS.close();
@@ -79,7 +83,7 @@ public class ProductDatabase {
     }
 
     public static void getProductOfDatabase() {
-        System.out.println("\n\t\tТОВАР В НАЛИЧИИ");
+        System.out.println(PRODUCT_IN_STOCK);
         for (Product p : productList) {
             System.out.println(p);
         }
@@ -102,10 +106,9 @@ public class ProductDatabase {
             if (iterator.next().getIndexProduct() == index) {
                 iterator.remove();
                 writingProductInDatabase();
-                System.out.println("Товар под индексом " + index + " удалён");
+                System.out.println(PRODUCT_INDEX + index + DELETE);
                 break;
             }
         }
-
     }
 }

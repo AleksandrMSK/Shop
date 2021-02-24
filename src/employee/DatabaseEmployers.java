@@ -3,7 +3,7 @@ package employee;
 import customer.Costumer;
 
 import registration.Registration;
-import servis.Constants;
+import servis.AllConstants;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,27 +11,30 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import static servis.Constants.ERROR_TYPING;
+import static servis.AllConstants.ERROR_TYPING;
 
 public class DatabaseEmployers implements Serializable {
-    public static final String ENTER_ID= "Введите id сотрудника: ";
-    public static final String ID_BUSY= "Индекс занят";
-    public static final String NAME_EMPLOYEE= "Имя сотрудника: ";
-    public static final String ENTER_CORRECT_NAME= "Введите корректное имя: ";
-    public static final String INSTALL_PASSWORD= "Установить пароль: ";
-    public static final String ENTER_PASSWORD= "Введите пароль от 8 до 16 символов: ";
-    public static final String ASSIGN_POSITION= "Назначить на должность: ";
-    public static final String TRY_AGAIN= "что то пошло не так, попробуй ещё раз: ";
-    public static final String ASSIGN_SALARY= "Установить зарплату: ";
-    public static final String HIRED= " успешно нанят на должность ";
-    public static final String FIRED= " уволен!!!!!!";
+    public static final String ENTER_ID = "Введите id сотрудника: ";
+    public static final String ID_BUSY = "Индекс занят";
+    public static final String NAME_EMPLOYEE = "Имя сотрудника: ";
+    public static final String ENTER_CORRECT_NAME = "Введите корректное имя: ";
+    public static final String INSTALL_PASSWORD = "Установить пароль: ";
+    public static final String ENTER_PASSWORD = "Введите пароль от 8 до 16 символов: ";
+    public static final String ASSIGN_POSITION = "Назначить на должность: ";
+    public static final String TRY_AGAIN = "что то пошло не так, попробуй ещё раз: ";
+    public static final String ASSIGN_SALARY = "Установить зарплату: ";
+    public static final String HIRED = " успешно нанят на должность ";
+    public static final String FIRED = " уволен!!!!!!";
     public static final String NOT_FOUND = " не найден";
+    public static final String SUCCESSFULLY_ADD = " бонусов успешно зачислены на бонусную карту ";
+    public static final String BONUS_CART ="Бонусная карта с номером " ;
+
 
     static ArrayList<ShopEmployee> shopEmployers;
     static Scanner scanner = new Scanner(System.in);
 
     public static void addEmployers() {
-        int id ;
+        int id;
         String password;
         String name;
         String position;
@@ -67,7 +70,7 @@ public class DatabaseEmployers implements Serializable {
             salary = Integer.parseInt(scanner.next());
             shopEmployers.add(new ShopEmployee(id, password, name, position, salary));
             writingEmployers();
-            System.out.println("\n "+name + HIRED + position+"\n");
+            System.out.println("\n " + name + HIRED + position + "\n");
         } catch (InputMismatchException | NumberFormatException e) {
             System.out.println(ERROR_TYPING + e);
         }
@@ -77,7 +80,11 @@ public class DatabaseEmployers implements Serializable {
         for (Costumer c : Registration.costumersRegistration) {
             if (c.getBonusCart().getId() == bonusCart) {
                 c.getBonusCart().setCountBonus(c.getBonusCart().getCountBonus() + count);
+                System.out.println(count + SUCCESSFULLY_ADD);
+            } else {
+                System.out.println(BONUS_CART + bonusCart + NOT_FOUND);
             }
+            break;
         }
         Registration.writingCostumerInDatabase();
     }
@@ -97,7 +104,7 @@ public class DatabaseEmployers implements Serializable {
 
     public static ArrayList<ShopEmployee> readingEmployers() {
         try {
-            FileInputStream fileIS = new FileInputStream(Constants.EMPLOYERS_DATABASE);
+            FileInputStream fileIS = new FileInputStream(AllConstants.EMPLOYERS_DATABASE);
             ObjectInputStream objectIS = new ObjectInputStream(fileIS);
             ArrayList<ShopEmployee> shopEmployers = (ArrayList<ShopEmployee>) objectIS.readObject();
             objectIS.close();
@@ -109,7 +116,7 @@ public class DatabaseEmployers implements Serializable {
     }
 
     public static void writingEmployers() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Constants.EMPLOYERS_DATABASE))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(AllConstants.EMPLOYERS_DATABASE))) {
             oos.writeObject(shopEmployers);
         } catch (IOException ex) {
             ex.printStackTrace();

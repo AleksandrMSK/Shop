@@ -10,9 +10,8 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "[индекс: " + indexProduct+"] [категория: "+category+"] [модель "
-                +nameProduct +"] [стоимость " + costProduct+"]\n"+
-                "================================================================================";
+        return "[индекс: " + indexProduct + "] [категория: " + category + "] [модель "
+                + nameProduct + "] [стоимость " + costProduct + "]";
 
     }
 
@@ -54,7 +53,6 @@ public class Product implements Serializable {
         this.nameProduct = nameProduct;
         this.costProduct = costProduct;
     }
-
 
 
 }

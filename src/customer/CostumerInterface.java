@@ -2,13 +2,13 @@ package customer;
 
 import product.ProductDatabase;
 import registration.Registration;
-import servis.Constants;
+import servis.AllConstants;
 import servis.Greeting;
 
 
 import java.util.Scanner;
 
-import static servis.Constants.SELECT_ITEM;
+import static servis.AllConstants.SELECT_ITEM;
 
 public class CostumerInterface {
     public static final String INPUT = "1 - вход";
@@ -34,8 +34,8 @@ public class CostumerInterface {
             try {
                 System.out.println(INPUT);
                 System.out.println(REGISTRATION);
-                System.out.println(Constants.EXIT);
-                System.out.print(Constants.ENTER);
+                System.out.println(AllConstants.EXIT);
+                System.out.print(AllConstants.ENTER);
                 int in = Integer.parseInt(scanner.next());
                 if (in == 1) {
                     if (LoginMenu.authorizationCostumerChekLogin()) {
@@ -50,8 +50,8 @@ public class CostumerInterface {
                             System.out.println(FILTER);
                             System.out.println(ADD_BALANCE);
                             System.out.println(PROFILE);
-                            System.out.println(Constants.EXIT);
-                            System.out.print(Constants.ENTER);
+                            System.out.println(AllConstants.EXIT);
+                            System.out.print(AllConstants.ENTER);
                             switch (Integer.parseInt(scanner.next())) {
                                 case 1:
                                     ProductDatabase.getProductOfDatabase();
@@ -80,7 +80,7 @@ public class CostumerInterface {
                                     Registration.getProfileCostumer();
                                     break;
                                 case 0:
-                                    System.out.println(Constants.EXIT);
+                                    System.out.println(AllConstants.EXIT);
                                     flagOnMenu = false;
                                     break;
                                 default:

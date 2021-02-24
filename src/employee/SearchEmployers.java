@@ -1,21 +1,24 @@
 package employee;
 
-import customer.Costumer;
-import registration.Registration;
-import java.util.ArrayList;
 import java.util.Scanner;
 
+import static servis.AllConstants.ERROR_TYPING;
+
 public class SearchEmployers {
+    public static final String MENU_INPUT = "Меню входа сотрудника";
+    public static final String ENTER_ID = "Введите ваш id: ";
+    public static final String ENTER_PASSWORD = "Введите ваш пароль: ";
+
     public static boolean authorizationCostumerChekLogin() {
         int id;
         String password;
         Scanner scanner = new Scanner(System.in);
         try {
-            System.out.println("Меню входа сотрудника");
-            System.out.print("Введите ваш id: ");
+            System.out.println(MENU_INPUT);
+            System.out.print(ENTER_ID);
             id = Integer.parseInt(scanner.next());
             scanner.nextLine();
-            System.out.print("Введите ваш пароль: ");
+            System.out.print(ENTER_PASSWORD);
             password = scanner.nextLine();
             for (ShopEmployee s : DatabaseEmployers.shopEmployers) {
                 if (s.getId() == id) {
@@ -24,8 +27,8 @@ public class SearchEmployers {
                     }
                 }
             }
-        }catch (NumberFormatException e){
-            System.out.println(e);
+        } catch (NumberFormatException e) {
+            System.out.println(ERROR_TYPING + e);
         }
         return false;
     }

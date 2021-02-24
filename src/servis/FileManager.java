@@ -6,13 +6,13 @@ import registration.Registration;
 
 public class FileManager {
 
-    public static void initialization(){
+    public static void initialization() {
         DatabaseEmployers.setShopEmployers(DatabaseEmployers.readingEmployers());
         ProductDatabase.productList = ProductDatabase.readingProductInDatabase();
         Registration.costumersRegistration = Registration.readingCostumerInDatabase();
     }
 
-    public static void writeToDataBase(){
+    public static void writeToDataBase() {
         DatabaseEmployers.writingEmployers();
         ProductDatabase.writingProductInDatabase();
         Registration.writingCostumerInDatabase();

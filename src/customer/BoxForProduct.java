@@ -7,8 +7,8 @@ import registration.Registration;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static servis.Constants.COME_BACK;
-import static servis.Constants.SELECT_ITEM;
+import static servis.AllConstants.COME_BACK;
+import static servis.AllConstants.SELECT_ITEM;
 
 public class BoxForProduct {
     static int index;

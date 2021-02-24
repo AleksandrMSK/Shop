@@ -1,7 +1,7 @@
 package customer;
 
 import registration.Registration;
-import servis.Constants;
+import servis.AllConstants;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -20,9 +20,9 @@ public class LoginMenu {
 
     public static boolean authorizationCostumerChekLogin() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print(Constants.ENTER_LOGIN);
+        System.out.print(AllConstants.ENTER_LOGIN);
         login = scanner.nextLine();
-        System.out.print(Constants.ENTER_PASSWORD);
+        System.out.print(AllConstants.ENTER_PASSWORD);
         password = scanner.nextLine();
         System.out.println("");
         for (Costumer s : Registration.costumersRegistration) {
@@ -49,7 +49,7 @@ public class LoginMenu {
     }
 
     public static boolean checksByBonusCart(int bonus) {
-        Pattern pattern = Pattern.compile(Constants.REGEX_BONUS);
+        Pattern pattern = Pattern.compile(AllConstants.REGEX_BONUS);
         Matcher matcher = pattern.matcher(String.valueOf(bonus));
         if (matcher.matches()) {
             for (Costumer c : Registration.costumersRegistration) {
