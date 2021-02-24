@@ -1,10 +1,13 @@
 package customer;
 
 import java.io.Serializable;
+
 /**
  * Класс бонусная карта с геттерами , сетерами и т.д.
+ *
  * @author Aleksandr Moskalchuk
- * @version 1.0*/
+ * @version 1.0
+ */
 public class BonusCart implements Serializable {
     private int id;
     private int countBonus;

@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static registration.ConstantForRegistration.*;
+
 /**
  * Класс регистрация клиентов
  * в классе присутствуют такие методы как:
@@ -24,11 +25,14 @@ import static registration.ConstantForRegistration.*;
  * - проверка через регулярные выражения: имени, логина ,пароля, возраста ,бонусной карты.
  * - зачисление денег на счёт клиента
  * - вывод профиля конкретного клиента
+ *
  * @author Aleksandr Moskalchuk
- * @version 1.0*/
+ * @version 1.0
+ */
 public class Registration {
     public static ArrayList<Costumer> costumersRegistration;
     static Scanner scanner = new Scanner(System.in);
+
     public static void registrationCostumer() {
         String name;
         int age;
