@@ -4,6 +4,13 @@ import java.util.Scanner;
 
 import static servis.AllConstants.ERROR_TYPING;
 
+/**
+ * Класс авторизация сотрудника
+ * проверяет вводимые данные на соответствие с данными в БД сотрудников
+ *
+ * @author Aleksandr Moskalchuk
+ * @version 1.0
+ */
 public class SearchEmployers {
     public static final String MENU_INPUT = "Меню входа сотрудника";
     public static final String ENTER_ID = "Введите ваш id: ";

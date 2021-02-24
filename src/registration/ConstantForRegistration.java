@@ -1,5 +1,8 @@
 package registration;
-
+/**
+ * Класс константы для класса Регистрация
+ * @author Aleksandr Moskalchuk
+ * @version 1.0*/
 public abstract class ConstantForRegistration {
     public static final String ENTER_NAME = "Введите имя: ";
     public static final String ENTER_CORRECT_NAME = "Введите корректное имя: ";

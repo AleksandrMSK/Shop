@@ -7,6 +7,11 @@ import registration.Registration;
 import servis.AllConstants;
 
 import java.util.Scanner;
+/**
+ * Класс интерфейса  для администратора со всеми элементами управления ,
+ * авторизация по логину и паролю.
+ * @author Aleksandr Moskalchuk
+ * @version 1.0*/
 
 public class AdminInterface extends ConstantsAdmin {
     public static void menuForAdministrator() {

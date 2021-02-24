@@ -14,7 +14,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static registration.ConstantForRegistration.*;
-
+/**
+ * Класс регистрация клиентов
+ * в классе присутствуют такие методы как:
+ * - регистрация клиентов
+ * - удаление клиентов по логину
+ * - сериализация (чтение / запись файлов )
+ * - вывод юазы данных на экран
+ * - проверка через регулярные выражения: имени, логина ,пароля, возраста ,бонусной карты.
+ * - зачисление денег на счёт клиента
+ * - вывод профиля конкретного клиента
+ * @author Aleksandr Moskalchuk
+ * @version 1.0*/
 public class Registration {
     public static ArrayList<Costumer> costumersRegistration;
     static Scanner scanner = new Scanner(System.in);

@@ -2,6 +2,13 @@ package employee;
 
 import java.io.Serializable;
 
+/**
+ * Класс сотрудник магазина
+ * в классе присутствуют геттеры ,сеттеры ,конструкторы ,переопределённый toString
+ *
+ * @author Aleksandr Moskalchuk
+ * @version 1.0
+ */
 public class ShopEmployee implements Serializable {
     private int id;
     private String password;
@@ -20,7 +27,7 @@ public class ShopEmployee implements Serializable {
     @Override
     public String toString() {
         return "[id: " + id + "] [Имя: " + name + "] [Должность: "
-                + position + "] [Зарплата: " + salary+ "]";
+                + position + "] [Зарплата: " + salary + "]";
     }
 
     public int getId() {

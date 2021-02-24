@@ -7,6 +7,16 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Класс Авторизация для клиента
+ * в класе присутствуют:
+ * - метод авторизация в которой проверяется логин и пароль на соответствие вводиммым данным с данными из БД
+ * - метод проверяющий на дубликаты логинов клиента
+ * - метод по проверке на дубликаты бонусной карты
+ *
+ * @author Aleksandr Moskalchuk
+ * @version 1.0
+ */
 public class LoginMenu {
 
     public static final String NUMBER_CART_BUSY = "Номер бонусной карты занят";

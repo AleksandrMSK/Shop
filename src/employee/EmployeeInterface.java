@@ -9,7 +9,11 @@ import java.util.Scanner;
 
 import static servis.AllConstants.ERROR_TYPING;
 import static servis.AllConstants.EXIT;
-
+/**
+ * Класс интерфейс сотрудника
+ *   метод в котором есть все элементы менб для сотрудника
+ * @author Aleksandr Moskalchuk
+ * @version 1.0*/
 public class EmployeeInterface implements Serializable {
     public static final String INTERFACE_EMPLOYEE = "\nИнтерфейс сотрудника магазина";
     public static final String WATCH_PRODUCT = "1 - посмотреть доступный товар";

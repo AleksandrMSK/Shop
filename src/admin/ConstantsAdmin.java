@@ -1,5 +1,8 @@
 package admin;
-
+/**
+ * Константы для класса AdminInterface
+ * @author Aleksandr Moskalchuk
+ * @version 1.0*/
 public abstract class ConstantsAdmin {
     public static final String LOGIN_ADMIN = "admin";
     public static final String PASSWORD_ADMIN = "admin1234";

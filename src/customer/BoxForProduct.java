@@ -10,6 +10,16 @@ import java.util.Scanner;
 import static servis.AllConstants.COME_BACK;
 import static servis.AllConstants.SELECT_ITEM;
 
+/**
+ * Класс корзина для товара
+ * В классе есть такие сущности нак
+ * - Константы
+ * - Мутод по добавлению товара в корзину
+ * - Метод по выводу содержимого корзины
+ * - Метод который расчитывает финальную стоимость товара ,и проверяет возможность оплаты клиентом товара.
+ * @author Aleksandr Moskalchuk
+ * @version 1.0
+ */
 public class BoxForProduct {
     static int index;
     public static final String BASKET = "КОРЗИНА";
@@ -27,7 +37,6 @@ public class BoxForProduct {
     public static final String ITEM_MENU = "для завершения опперации вам не хватает ";
     public static final String MONEY = " белок";
     public static final String CLEAR = "корзина очищена";
-
 
     static ArrayList<Product> boxForProduct = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);

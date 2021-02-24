@@ -13,6 +13,18 @@ import java.util.Scanner;
 
 import static servis.AllConstants.ERROR_TYPING;
 
+/**
+ * Класс База данных сотрудников
+ * в класе есть методы:
+ * - добавление новых сотрудников в базу данных
+ * - начисление бонусов
+ * - удаление сотрудников по id
+ * - сериализация (чтение / запись файло)
+ * - вывод базы данных сотрудников на экран
+ *
+ * @author Aleksandr Moskalchuk
+ * @version 1.0
+ */
 public class DatabaseEmployers implements Serializable {
     public static final String ENTER_ID = "Введите id сотрудника: ";
     public static final String ID_BUSY = "Индекс занят";
@@ -27,8 +39,7 @@ public class DatabaseEmployers implements Serializable {
     public static final String FIRED = " уволен!!!!!!";
     public static final String NOT_FOUND = " не найден";
     public static final String SUCCESSFULLY_ADD = " бонусов успешно зачислены на бонусную карту ";
-    public static final String BONUS_CART ="Бонусная карта с номером " ;
-
+    public static final String BONUS_CART = "Бонусная карта с номером ";
 
     static ArrayList<ShopEmployee> shopEmployers;
     static Scanner scanner = new Scanner(System.in);

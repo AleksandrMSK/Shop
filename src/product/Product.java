@@ -2,17 +2,24 @@ package product;
 
 import java.io.Serializable;
 
+/**
+ * Класс товар
+ * в классе реализованы геттеры ,сеттеры ,конструктор ,так же переопределён toString
+ *
+ * @author Aleksandr Moskalchuk
+ * @version 1.0
+ */
 public class Product implements Serializable {
     private int indexProduct;
     private String category;
     private String nameProduct;
     private double costProduct;
 
-    @Override
-    public String toString() {
-        return "[индекс: " + indexProduct + "] [категория: " + category + "] [модель "
-                + nameProduct + "] [стоимость " + costProduct + "]";
-
+    public Product(int indexProduct, String category, String nameProduct, double costProduct) {
+        this.indexProduct = indexProduct;
+        this.category = category;
+        this.nameProduct = nameProduct;
+        this.costProduct = costProduct;
     }
 
     public int getIndexProduct() {
@@ -47,12 +54,10 @@ public class Product implements Serializable {
         this.costProduct = costProduct;
     }
 
-    public Product(int indexProduct, String category, String nameProduct, double costProduct) {
-        this.indexProduct = indexProduct;
-        this.category = category;
-        this.nameProduct = nameProduct;
-        this.costProduct = costProduct;
+    @Override
+    public String toString() {
+        return "[индекс: " + indexProduct + "] [категория: " + category + "] [модель "
+                + nameProduct + "] [стоимость " + costProduct + "]";
+
     }
-
-
 }

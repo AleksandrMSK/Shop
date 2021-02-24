@@ -8,6 +8,18 @@ import java.util.*;
 import static servis.AllConstants.ERROR_TYPING;
 import static servis.AllConstants.INDEX_BUSY;
 
+/**
+ * Класс база данных товара
+ * в классе присутствуют методы
+ * - сериализация (чтение / запись файло)
+ * - вывод на экран товара
+ * - сортировка товара по названию
+ * - фильтр товара по веведённым данным
+ * - удаление товара из базы данных
+ *
+ * @author Aleksandr Moskalchuk
+ * @version 1.0
+ */
 public class ProductDatabase {
     public static final String PRODUCT_INDEX = "Товар под индексом ";
     public static final String PRODUCT_IN_STOCK = "\n\tТОВАР В НАЛИЧИИ";

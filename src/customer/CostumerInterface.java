@@ -9,7 +9,12 @@ import servis.Greeting;
 import java.util.Scanner;
 
 import static servis.AllConstants.SELECT_ITEM;
-
+/**
+ * Класс Интерфейс клиента ,класс имеет все элементы меню для клиента
+ * так же в классе присутствуют константы
+ *
+ * @author Aleksandr Moskalchuk
+ * @version 1.0*/
 public class CostumerInterface {
     public static final String INPUT = "1 - вход";
     public static final String REGISTRATION = "2 - регистрация";
@@ -87,7 +92,6 @@ public class CostumerInterface {
                                     System.out.println(SELECT_ITEM);
                             }
                         }
-
                     } else {
                         System.out.println(MISTAKE);
                     }
@@ -102,7 +106,6 @@ public class CostumerInterface {
             } catch (NumberFormatException e) {
                 System.out.println(SELECT_ITEM + e);
             }
-
         }
     }
 }
